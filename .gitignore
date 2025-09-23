@@ -18,7 +18,6 @@ venv/
 .venv/
 env/
 ENV/
-setup_env.sh
 
 # OS/Editor
 .DS_Store

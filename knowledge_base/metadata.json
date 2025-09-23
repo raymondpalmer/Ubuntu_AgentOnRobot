@@ -1,0 +1,551 @@
+{
+  "documents": {
+    "knowledge_base/files/AUTO_KNOWLEDGE_BASE_GUIDE.md": {
+      "filename": "AUTO_KNOWLEDGE_BASE_GUIDE.md",
+      "category": "manual",
+      "file_type": ".md",
+      "chunks_count": 9,
+      "added_time": "2025-09-17T17:28:33.782128"
+    },
+    "knowledge_base/files/README.md": {
+      "filename": "README.md",
+      "category": "official",
+      "file_type": ".md",
+      "chunks_count": 28,
+      "added_time": "2025-09-17T17:29:05.651591"
+    },
+    "knowledge_base/files/Sentence Segmentation and Punctuation for Ancient Books Based on Supervised In-context Training.pdf": {
+      "filename": "Sentence Segmentation and Punctuation for Ancient Books Based on Supervised In-context Training.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 44,
+      "added_time": "2025-09-17T17:21:30.491474"
+    },
+    "knowledge_base/files/MTVCrafter 4D Motion Tokenization for open-world human image animation.pdf": {
+      "filename": "MTVCrafter 4D Motion Tokenization for open-world human image animation.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 160,
+      "added_time": "2025-09-17T17:21:35.584631"
+    },
+    "knowledge_base/files/SAM-E Leveraging Visual Foundation Model with Sequence Imitation for Embodied Manipulation.pdf": {
+      "filename": "SAM-E Leveraging Visual Foundation Model with Sequence Imitation for Embodied Manipulation.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 180,
+      "added_time": "2025-09-17T17:21:49.105315"
+    },
+    "knowledge_base/files/Robust polari...posure fusion_YIFU ZHOU.pdf": {
+      "filename": "Robust polari...posure fusion_YIFU ZHOU.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 128,
+      "added_time": "2025-09-17T17:22:04.281536"
+    },
+    "knowledge_base/files/TeleAI at SemEval-2025 Task 8 Advancing Table Reasoning Framework.pdf": {
+      "filename": "TeleAI at SemEval-2025 Task 8 Advancing Table Reasoning Framework.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 124,
+      "added_time": "2025-09-17T17:22:20.322644"
+    },
+    "knowledge_base/files/Tele-FLM Technical Report.pdf": {
+      "filename": "Tele-FLM Technical Report.pdf",
+      "category": "tech",
+      "file_type": ".pdf",
+      "chunks_count": 148,
+      "added_time": "2025-09-17T17:22:43.333124"
+    },
+    "knowledge_base/files/Revisiting Multi-Agent World Modeling from a diffusion-inspired perspective.pdf": {
+      "filename": "Revisiting Multi-Agent World Modeling from a diffusion-inspired perspective.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 161,
+      "added_time": "2025-09-17T17:22:50.565279"
+    },
+    "knowledge_base/files/Water-related optical imaging From algorithm to hardware.pdf": {
+      "filename": "Water-related optical imaging From algorithm to hardware.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 479,
+      "added_time": "2025-09-17T17:23:06.663459"
+    },
+    "knowledge_base/files/深度学习在光纤成像中的应用进展（特邀）_孙佳伟.pdf": {
+      "filename": "深度学习在光纤成像中的应用进展（特邀）_孙佳伟.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 105,
+      "added_time": "2025-09-17T17:23:12.094151"
+    },
+    "knowledge_base/files/图像信息量度量_李学龙.pdf": {
+      "filename": "图像信息量度量_李学龙.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 42,
+      "added_time": "2025-09-17T17:23:13.864478"
+    },
+    "knowledge_base/files/AUV水下回收光学导引（特邀）_李学龙.pdf": {
+      "filename": "AUV水下回收光学导引（特邀）_李学龙.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 168,
+      "added_time": "2025-09-17T17:23:37.524263"
+    },
+    "knowledge_base/files/Corrigendum to “MA-FSAR Multimodal Adaptation of CLIP for few-shot.pdf": {
+      "filename": "Corrigendum to “MA-FSAR Multimodal Adaptation of CLIP for few-shot.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 12,
+      "added_time": "2025-09-17T17:24:04.218778"
+    },
+    "knowledge_base/files/大模型驱动的具身智能_发展与挑战_白辰甲.pdf": {
+      "filename": "大模型驱动的具身智能_发展与挑战_白辰甲.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 272,
+      "added_time": "2025-09-17T17:25:36.784720"
+    },
+    "knowledge_base/files/Towards Efficient LLM Grounding for Embodied Multi-Agent Collaboration.pdf": {
+      "filename": "Towards Efficient LLM Grounding for Embodied Multi-Agent Collaboration.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 272,
+      "added_time": "2025-09-17T17:25:46.287935"
+    },
+    "knowledge_base/files/Deep_Graph_Multi-View_Representation_Learning_With_Self-Augmented_View_Fusion.pdf": {
+      "filename": "Deep_Graph_Multi-View_Representation_Learning_With_Self-Augmented_View_Fusion.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 131,
+      "added_time": "2025-09-17T17:26:17.726237"
+    },
+    "knowledge_base/files/Learning_Multi-Dimensional_Speaker_Localization_Axis_Partitioning_Unbiased_Label_Distribution_and_Data_Augmentation.pdf": {
+      "filename": "Learning_Multi-Dimensional_Speaker_Localization_Axis_Partitioning_Unbiased_Label_Distribution_and_Data_Augmentation.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 146,
+      "added_time": "2025-09-17T17:26:23.814663"
+    },
+    "knowledge_base/files/CREST Cross-modal Resonance through Evidential Deep.pdf": {
+      "filename": "CREST Cross-modal Resonance through Evidential Deep.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 130,
+      "added_time": "2025-09-17T17:26:28.502204"
+    },
+    "knowledge_base/files/HumanoidGen Data Generation for Bimanual Dexterous Manipulation via LLM Reasoning.pdf": {
+      "filename": "HumanoidGen Data Generation for Bimanual Dexterous Manipulation via LLM Reasoning.pdf",
+      "category": "manual",
+      "file_type": ".pdf",
+      "chunks_count": 316,
+      "added_time": "2025-09-17T17:26:39.695093"
+    },
+    "knowledge_base/files/Learn as Individuals, Evolve as a Team Multi-agent LLMs Adaptation in Embodied Environments.pdf": {
+      "filename": "Learn as Individuals, Evolve as a Team Multi-agent LLMs Adaptation in Embodied Environments.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 143,
+      "added_time": "2025-09-17T17:26:51.221931"
+    },
+    "knowledge_base/files/Preface Water-related vision.pdf": {
+      "filename": "Preface Water-related vision.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 6,
+      "added_time": "2025-09-17T17:26:51.502850"
+    },
+    "knowledge_base/files/TeleAI at SemEval-2025 Task 11 Bridging the Gap in Text-Based Emotion.pdf": {
+      "filename": "TeleAI at SemEval-2025 Task 11 Bridging the Gap in Text-Based Emotion.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 72,
+      "added_time": "2025-09-17T17:27:15.324365"
+    },
+    "knowledge_base/files/Autonomous Driving in Unstructured Environments.pdf": {
+      "filename": "Autonomous Driving in Unstructured Environments.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 429,
+      "added_time": "2025-09-17T17:27:29.141298"
+    },
+    "knowledge_base/files/深度学习在光纤成像中的应用进展（特邀）_孙佳伟 (1).pdf": {
+      "filename": "深度学习在光纤成像中的应用进展（特邀）_孙佳伟 (1).pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 105,
+      "added_time": "2025-09-17T17:27:33.898004"
+    },
+    "knowledge_base/files/0D9CA62E47324917A61A7770C56CF00E.pdf": {
+      "filename": "0D9CA62E47324917A61A7770C56CF00E.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 272,
+      "added_time": "2025-09-17T17:27:43.360823"
+    },
+    "knowledge_base/files/TeleAI_人工智能的未来在智传网_中国电信人工智能研究院.pdf": {
+      "filename": "TeleAI_人工智能的未来在智传网_中国电信人工智能研究院.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 3,
+      "added_time": "2025-09-17T17:27:54.106536"
+    },
+    "knowledge_base/files/MoRE Mixture of Residual Experts for Humanoid Lifelike Gaits Learning on Complex Terrains.pdf": {
+      "filename": "MoRE Mixture of Residual Experts for Humanoid Lifelike Gaits Learning on Complex Terrains.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 101,
+      "added_time": "2025-09-17T17:27:57.697864"
+    },
+    "knowledge_base/files/人工智能伦理计算_高漪澜.pdf": {
+      "filename": "人工智能伦理计算_高漪澜.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 149,
+      "added_time": "2025-09-17T17:28:12.405963"
+    },
+    "knowledge_base/files/52B to 1T Lessons Learned via Tele-FLM Series.pdf": {
+      "filename": "52B to 1T Lessons Learned via Tele-FLM Series.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 63,
+      "added_time": "2025-09-17T17:28:14.660615"
+    },
+    "knowledge_base/files/基于目标搜寻和细节增强的水下单像素成像方法_陈翼钒.pdf": {
+      "filename": "基于目标搜寻和细节增强的水下单像素成像方法_陈翼钒.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 53,
+      "added_time": "2025-09-17T17:28:42.281125"
+    },
+    "knowledge_base/files/自主水下航行器多分支网络光学导引定位方法_朱若澜.pdf": {
+      "filename": "自主水下航行器多分支网络光学导引定位方法_朱若澜.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 86,
+      "added_time": "2025-09-17T17:28:45.301223"
+    },
+    "knowledge_base/files/AudioSpa Spatializing Sound Events with Text.pdf": {
+      "filename": "AudioSpa Spatializing Sound Events with Text.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 125,
+      "added_time": "2025-09-17T17:28:57.264389"
+    },
+    "knowledge_base/files/Bridging the Gap between Continuous and informative discrete representations by random product quantization.pdf": {
+      "filename": "Bridging the Gap between Continuous and informative discrete representations by random product quantization.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 137,
+      "added_time": "2025-09-17T17:29:02.429554"
+    },
+    "knowledge_base/files/DISENTANGLE AND DENOISE TACKLING CONTEXT MISALIGNMENT FOR VIDEO.pdf": {
+      "filename": "DISENTANGLE AND DENOISE TACKLING CONTEXT MISALIGNMENT FOR VIDEO.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 62,
+      "added_time": "2025-09-17T17:29:04.760311"
+    },
+    "knowledge_base/files/KungfuBot Physics-Based Humanoid Whole-Body Control for Learning Highly-Dynamic Skills.pdf": {
+      "filename": "KungfuBot Physics-Based Humanoid Whole-Body Control for Learning Highly-Dynamic Skills.pdf",
+      "category": "robot",
+      "file_type": ".pdf",
+      "chunks_count": 158,
+      "added_time": "2025-09-17T17:29:11.577539"
+    },
+    "knowledge_base/files/Modality-experts coordinated adaptation for large multimodal models.pdf": {
+      "filename": "Modality-experts coordinated adaptation for large multimodal models.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 167,
+      "added_time": "2025-09-17T17:29:31.245289"
+    },
+    "knowledge_base/files/TECHNICAL REPORT OF TELECHAT2, TELECHAT2.5.pdf": {
+      "filename": "TECHNICAL REPORT OF TELECHAT2, TELECHAT2.5.pdf",
+      "category": "tech",
+      "file_type": ".pdf",
+      "chunks_count": 262,
+      "added_time": "2025-09-17T17:29:58.047810"
+    },
+    "knowledge_base/files/Fast and robu...th monitoring_Cong Wang.pdf": {
+      "filename": "Fast and robu...th monitoring_Cong Wang.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 98,
+      "added_time": "2025-09-17T17:30:18.020546"
+    },
+    "knowledge_base/files/面向含噪中规模量子处理器的量子机器学习_石金晶.pdf": {
+      "filename": "面向含噪中规模量子处理器的量子机器学习_石金晶.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 323,
+      "added_time": "2025-09-17T17:30:37.794707"
+    },
+    "knowledge_base/files/AI Flow Perspectives, Scenarios, and approaches.pdf": {
+      "filename": "AI Flow Perspectives, Scenarios, and approaches.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 350,
+      "added_time": "2025-09-17T17:30:49.902316"
+    },
+    "knowledge_base/files/Learning a Su...Factorization_Feiping Nie.pdf": {
+      "filename": "Learning a Su...Factorization_Feiping Nie.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 107,
+      "added_time": "2025-09-17T17:30:54.053706"
+    },
+    "knowledge_base/files/A SURVEY OF EMBODIED ARTIFICIAL INTELLIGENCE DATA.pdf": {
+      "filename": "A SURVEY OF EMBODIED ARTIFICIAL INTELLIGENCE DATA.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 334,
+      "added_time": "2025-09-17T17:31:04.652901"
+    },
+    "knowledge_base/files/连续上央视！TeleAI 讲了什么？.pdf": {
+      "filename": "连续上央视！TeleAI 讲了什么？.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 5,
+      "added_time": "2025-09-17T17:21:29.012948"
+    },
+    "knowledge_base/files/ICML 2025  TeleAI 聚焦正激励噪声与多智能体隐私安全.pdf": {
+      "filename": "ICML 2025  TeleAI 聚焦正激励噪声与多智能体隐私安全.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 7,
+      "added_time": "2025-09-17T17:21:42.495685"
+    },
+    "knowledge_base/files/中国电信穿透式监管体系入选首批央企AI战略性高价值场景.pdf": {
+      "filename": "中国电信穿透式监管体系入选首批央企AI战略性高价值场景.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 7,
+      "added_time": "2025-09-17T17:21:59.709462"
+    },
+    "knowledge_base/files/“国云注智 聚力向新” 中国电信携AI最新成果亮相2024智算云生态大会.pdf": {
+      "filename": "“国云注智 聚力向新” 中国电信携AI最新成果亮相2024智算云生态大会.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 7,
+      "added_time": "2025-09-17T17:22:16.060528"
+    },
+    "knowledge_base/files/中国电信人工智能研究院（TeleAI）正式揭牌，李学龙（9406）任院长.pdf": {
+      "filename": "中国电信人工智能研究院（TeleAI）正式揭牌，李学龙（9406）任院长.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 6,
+      "added_time": "2025-09-17T17:22:28.750743"
+    },
+    "knowledge_base/files/中国电信刘桂清：拥抱AI，向善而行.pdf": {
+      "filename": "中国电信刘桂清：拥抱AI，向善而行.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 9,
+      "added_time": "2025-09-17T17:22:36.899978"
+    },
+    "knowledge_base/files/星辰语义大模型-TeleChat2.pdf": {
+      "filename": "星辰语义大模型-TeleChat2.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 15,
+      "added_time": "2025-09-17T17:23:30.602822"
+    },
+    "knowledge_base/files/baidubaike.pdf": {
+      "filename": "baidubaike.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 20,
+      "added_time": "2025-09-17T17:24:03.679094"
+    },
+    "knowledge_base/files/ACM MM 2025 TeleAI 多项成果入选，聚焦多模态能力增强、跨模态对齐及安全保障.pdf": {
+      "filename": "ACM MM 2025 TeleAI 多项成果入选，聚焦多模态能力增强、跨模态对齐及安全保障.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 8,
+      "added_time": "2025-09-17T17:24:12.897538"
+    },
+    "knowledge_base/files/ACL 2025  TeleAI 一冠一亚！多项成果推动大模型创新与应用.pdf": {
+      "filename": "ACL 2025  TeleAI 一冠一亚！多项成果推动大模型创新与应用.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 9,
+      "added_time": "2025-09-17T17:24:20.516509"
+    },
+    "knowledge_base/files/双料冠军！TeleAI 登顶 IJCAI 2025 多模态深度鉴伪挑战赛.pdf": {
+      "filename": "双料冠军！TeleAI 登顶 IJCAI 2025 多模态深度鉴伪挑战赛.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 7,
+      "added_time": "2025-09-17T17:24:27.853728"
+    },
+    "knowledge_base/files/中国电信发布星小辰终端智能体：防诈、办公、生活全搞定，麦芒40首发搭载！.pdf": {
+      "filename": "中国电信发布星小辰终端智能体：防诈、办公、生活全搞定，麦芒40首发搭载！.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 7,
+      "added_time": "2025-09-17T17:24:34.305707"
+    },
+    "knowledge_base/files/T1 模型是 TeleChat 系列专注于复杂推理的模型.pdf": {
+      "filename": "T1 模型是 TeleChat 系列专注于复杂推理的模型.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 13,
+      "added_time": "2025-09-17T17:24:46.175556"
+    },
+    "knowledge_base/files/在“史上最火”WAIC 中国电信首次发布AI全景图谱.pdf": {
+      "filename": "在“史上最火”WAIC 中国电信首次发布AI全景图谱.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 14,
+      "added_time": "2025-09-17T17:25:06.521547"
+    },
+    "knowledge_base/files/《计算机科学与探索》组织“极端环境图像处理与应用”专题征文，李学龙教授任特邀编辑.pdf": {
+      "filename": "《计算机科学与探索》组织“极端环境图像处理与应用”专题征文，李学龙教授任特邀编辑.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 6,
+      "added_time": "2025-09-17T17:25:14.146805"
+    },
+    "knowledge_base/files/中电信人工智能公司与中国纺织工业联合会签署战略合作协议，共促纺织业智能化升级.pdf": {
+      "filename": "中电信人工智能公司与中国纺织工业联合会签署战略合作协议，共促纺织业智能化升级.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 7,
+      "added_time": "2025-09-17T17:25:21.781761"
+    },
+    "knowledge_base/files/TeleAI 组织出版《反无人机目标感知技术：基于视觉智能》，推动空域安全落到实处.pdf": {
+      "filename": "TeleAI 组织出版《反无人机目标感知技术：基于视觉智能》，推动空域安全落到实处.pdf",
+      "category": "tech",
+      "file_type": ".pdf",
+      "chunks_count": 6,
+      "added_time": "2025-09-17T17:25:27.271043"
+    },
+    "knowledge_base/files/“AI国家队”中国电信天翼AI，入选2025“人工智能+”新质生产力领航企业榜单.pdf": {
+      "filename": "“AI国家队”中国电信天翼AI，入选2025“人工智能+”新质生产力领航企业榜单.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 7,
+      "added_time": "2025-09-17T17:25:52.802965"
+    },
+    "knowledge_base/files/连接未来 智创无限  TeleAI 顺利举办“中国电信 2025 年博士夏令营 AI 方向专场.pdf": {
+      "filename": "连接未来 智创无限  TeleAI 顺利举办“中国电信 2025 年博士夏令营 AI 方向专场.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 6,
+      "added_time": "2025-09-17T17:25:59.265395"
+    },
+    "knowledge_base/files/中国电信人工智能研究院（TeleAI）以“智传网 AI Flow”为核心绘制AI新图景.pdf": {
+      "filename": "中国电信人工智能研究院（TeleAI）以“智传网 AI Flow”为核心绘制AI新图景.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 9,
+      "added_time": "2025-09-17T17:26:12.572423"
+    },
+    "knowledge_base/files/WAIC 2025 TeleAI 深度参会，分享前瞻思考与产业洞察.pdf": {
+      "filename": "WAIC 2025 TeleAI 深度参会，分享前瞻思考与产业洞察.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 9,
+      "added_time": "2025-09-17T17:26:46.605635"
+    },
+    "knowledge_base/files/WAIC 2025  “TeleAI 青年智算计划”正式启动.pdf": {
+      "filename": "WAIC 2025  “TeleAI 青年智算计划”正式启动.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 4,
+      "added_time": "2025-09-17T17:26:55.584272"
+    },
+    "knowledge_base/files/具身VLA后训练：TeleAI提出潜空间引导的VLA跨本体泛化方法.pdf": {
+      "filename": "具身VLA后训练：TeleAI提出潜空间引导的VLA跨本体泛化方法.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 12,
+      "added_time": "2025-09-17T17:27:13.046944"
+    },
+    "knowledge_base/files/解码“智传网”：走进中国电信人工智能研究院.pdf": {
+      "filename": "解码“智传网”：走进中国电信人工智能研究院.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 8,
+      "added_time": "2025-09-17T17:27:53.742403"
+    },
+    "knowledge_base/files/中电信人工智能刘翼：天翼AI星辰大模型赋能千行百业 塑造新质生产力引擎.pdf": {
+      "filename": "中电信人工智能刘翼：天翼AI星辰大模型赋能千行百业 塑造新质生产力引擎.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 9,
+      "added_time": "2025-09-17T17:28:06.258942"
+    },
+    "knowledge_base/files/星辰聚智·才启未来：2025世界人工智能大会中国电信发布系列前沿能力及AI产品.pdf": {
+      "filename": "星辰聚智·才启未来：2025世界人工智能大会中国电信发布系列前沿能力及AI产品.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 12,
+      "added_time": "2025-09-17T17:28:33.400418"
+    },
+    "knowledge_base/files/TeleAI 科技前沿论坛  信容律、同源律、集成律构建智传网（AI Flow）理论体系.pdf": {
+      "filename": "TeleAI 科技前沿论坛  信容律、同源律、集成律构建智传网（AI Flow）理论体系.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 6,
+      "added_time": "2025-09-17T17:28:39.702268"
+    },
+    "knowledge_base/files/iOptics 新刊发布  李学龙教授受邀担任副主编并发表创刊文章.pdf": {
+      "filename": "iOptics 新刊发布  李学龙教授受邀担任副主编并发表创刊文章.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 7,
+      "added_time": "2025-09-17T17:28:52.724812"
+    },
+    "knowledge_base/files/中国电信花卷数字人提供全栈技术、全品类、全场景的定制化解决方案.pdf": {
+      "filename": "中国电信花卷数字人提供全栈技术、全品类、全场景的定制化解决方案.pdf",
+      "category": "tech",
+      "file_type": ".pdf",
+      "chunks_count": 3,
+      "added_time": "2025-09-17T17:29:14.852124"
+    },
+    "knowledge_base/files/关于teleai.pdf": {
+      "filename": "关于teleai.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 4,
+      "added_time": "2025-09-17T17:29:17.680590"
+    },
+    "knowledge_base/files/WAIC 2025  入选 SAIL 奖 TOP30，TeleAI 国产大模型深度解析（第2弹）.pdf": {
+      "filename": "WAIC 2025  入选 SAIL 奖 TOP30，TeleAI 国产大模型深度解析（第2弹）.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 9,
+      "added_time": "2025-09-17T17:29:25.480722"
+    },
+    "knowledge_base/files/中国电信人工智能研究院发布首个央企全自研视频生成大模型.pdf": {
+      "filename": "中国电信人工智能研究院发布首个央企全自研视频生成大模型.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 12,
+      "added_time": "2025-09-17T17:29:43.581046"
+    },
+    "knowledge_base/files/TeleAI 获“人工智能向善全球峰会”杰出案例奖，以智传网 AI Flow 助力绿色多集群构建.pdf": {
+      "filename": "TeleAI 获“人工智能向善全球峰会”杰出案例奖，以智传网 AI Flow 助力绿色多集群构建.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 6,
+      "added_time": "2025-09-17T17:29:49.748727"
+    },
+    "knowledge_base/files/TeleChat2.5.pdf": {
+      "filename": "TeleChat2.5.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 15,
+      "added_time": "2025-09-17T17:30:10.982732"
+    },
+    "knowledge_base/files/《光学学报》封面文章  李学龙教授团队：AUV 水下回收光学导引.pdf": {
+      "filename": "《光学学报》封面文章  李学龙教授团队：AUV 水下回收光学导引.pdf",
+      "category": "general",
+      "file_type": ".pdf",
+      "chunks_count": 6,
+      "added_time": "2025-09-17T17:30:23.939548"
+    }
+  },
+  "last_updated": "2025-09-17T17:31:04.652930"
+}

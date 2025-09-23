@@ -1,0 +1,18 @@
+{
+  "3237a1c12b061dbead63cfab6a6a7950": {
+    "file_path": "docs/examples/机器人操作手册.txt",
+    "title": "机器人操作手册",
+    "file_type": "文本",
+    "category": "技术文档",
+    "chunks_count": 1,
+    "added_at": "2025-09-10T11:11:59.051393"
+  },
+  "fb65db65ce6d08373233a1a31f47e040": {
+    "file_path": "docs/examples/常见问题.md",
+    "title": "常见问题解答",
+    "file_type": "文本",
+    "category": "帮助文档",
+    "chunks_count": 2,
+    "added_at": "2025-09-10T11:12:11.059874"
+  }
+}

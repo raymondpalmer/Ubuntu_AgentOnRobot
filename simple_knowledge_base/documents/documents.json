@@ -1,0 +1,38 @@
+[
+  {
+    "id": "0_0",
+    "title": "机器人操作手册 (第1段)",
+    "content": "Dragon机器人操作手册\n\n一、基本控制命令\n1. 机器人前进 - 控制机器人向前移动\n2. 机器人后退 - 控制机器人向后移动\n3. 机器人左转 - 控制机器人向左转向\n4. 机器人右转 - 控制机器人向右转向\n5. 机器人停止 - 立即停止机器人运动\n\n二、关节控制命令\n1. 抬起左手 - 左臂向上抬起90度\n2. 抬起右手 - 右臂向上抬起90度\n3. 放下左手 - 左臂放下到0度位置\n4. 放下右手 - 右臂放下到0度位置\n\n三、安全注意事项\n1. 使用前请确保周围环境安全\n2. 机器人运动时请保持安全距离\n3. 遇到紧急情况立即说\"机器人停止\"\n4. 定期检查机器人关节状态\n\n四、故障排除\n1. 如果语音识别不准确，请调节麦克风音量\n2. 如果机器人无响应，请检查ROS连接状态\n3. 如果音频播放异常，请检查音频设备配置",
+    "source": "docs/examples/机器人操作手册.txt",
+    "file_type": "文本",
+    "category": "技术文档",
+    "chunk_index": 0,
+    "total_chunks": 1,
+    "created_at": "2025-09-10T11:11:59.051376",
+    "file_hash": "3237a1c12b061dbead63cfab6a6a7950"
+  },
+  {
+    "id": "1_0",
+    "title": "常见问题解答 (第1段)",
+    "content": "# Dragon机器人常见问题解答\n\n## 语音相关问题\n\n### Q: 为什么语音识别不准确？\nA: 请检查以下几点：\n- 确保麦克风正常工作\n- 调节适当的音量\n- 在安静环境中使用\n- 说话清晰、语速适中\n\n### Q: 为什么没有语音回复？\nA: 可能的原因：\n- 音频设备配置问题\n- 网络连接异常\n- API密钥未正确配置\n\n## 机器人控制问题\n\n### Q: 机器人不执行命令怎么办？\nA: 请检查：\n- ROS系统是否正常运行\n- 机器人硬件连接状态\n- 确认使用正确的语音指令\n\n### Q: 支持哪些控制命令？\nA: 当前支持的命令包括：\n- 基本移动：前进、后退、左转、右转、停止\n- 关节控制：抬手、放手等动作\n\n## 系统配置问题\n\n### Q: 如何配置API密钥？\nA: 编辑.env文件，添加：\n```\nDOUBAO_API_KEY=your_api_key_here\nDOUBAO_BASE_URL=https://ark.cn-beijing.volces.com/api/v3\n```",
+    "source": "docs/examples/常见问题.md",
+    "file_type": "文本",
+    "category": "帮助文档",
+    "chunk_index": 0,
+    "total_chunks": 2,
+    "created_at": "2025-09-10T11:12:11.059855",
+    "file_hash": "fb65db65ce6d08373233a1a31f47e040"
+  },
+  {
+    "id": "1_1",
+    "title": "常见问题解答 (第2段)",
+    "content": "### Q: 如何添加自定义知识库？\nA: 使用知识库管理工具：\n```bash\npython knowledge_manager.py --add \"文件路径\" --title \"文档标题\"\n```",
+    "source": "docs/examples/常见问题.md",
+    "file_type": "文本",
+    "category": "帮助文档",
+    "chunk_index": 1,
+    "total_chunks": 2,
+    "created_at": "2025-09-10T11:12:11.059872",
+    "file_hash": "fb65db65ce6d08373233a1a31f47e040"
+  }
+]

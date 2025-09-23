@@ -1,0 +1,13 @@
+{
+  "speaker": "BV700_streaming",
+  "audio_config": {
+    "channel": 1,
+    "format": "pcm",
+    "sample_rate": 24000
+  },
+  "voice_params": {
+    "speed_ratio": 1.0,
+    "volume_ratio": 1.0,
+    "pitch_ratio": 1.0
+  }
+}

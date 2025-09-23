@@ -1,0 +1,23 @@
+{
+  "3237a1c12b061dbead63cfab6a6a7950": {
+    "file_path": "docs/examples/机器人操作手册.txt",
+    "title": "机器人操作手册",
+    "file_type": "text",
+    "chunks_count": 1,
+    "added_at": "2025-09-10T11:07:52.395791"
+  },
+  "fb65db65ce6d08373233a1a31f47e040": {
+    "file_path": "docs/examples/常见问题.md",
+    "title": "常见问题解答",
+    "file_type": "text",
+    "chunks_count": 2,
+    "added_at": "2025-09-10T11:08:07.643500"
+  },
+  "237878383359a37dab2fa4950c0fc024": {
+    "file_path": "docs/examples/公司规章制度.txt",
+    "title": "公司管理规定",
+    "file_type": "text",
+    "chunks_count": 1,
+    "added_at": "2025-09-10T11:08:20.603617"
+  }
+}

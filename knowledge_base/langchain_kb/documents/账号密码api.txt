@@ -1,0 +1,4 @@
+echo "export ARK_API_KEY=\"9d9b53eb-d58b-4763-b8f8-54f99c461948\""
+echo "export DOUBAO_BASE_URL=\"https://ark.cn-beijing.volces.com/api/v3/chat/completions\""
+echo "export DOUBAO_MODEL=\"doubao-seed-1-6-250615\""
+echo "export VOICE_FALLBACK=\"0\""

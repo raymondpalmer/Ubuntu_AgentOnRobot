@@ -1,0 +1,9 @@
+
+python-dotenv
+sounddevice
+numpy
+websockets
+requests
+pydantic
+fastapi
+uvicorn

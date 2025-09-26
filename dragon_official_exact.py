@@ -838,103 +838,11 @@ class DragonDialogSession:
                     asr_text = content
                     print(f"📍 [ASR调试] 从content获得: {asr_text}")
 
+
             if asr_text and asr_text.strip():
-                asr_text = payload_msg['asr_result']
-                if asr_text.strip():
-                    print(f"🎤 识别到: {asr_text}")
-
-                    # 优先拦截“身份/归属”问题
-                    intercept = self.intercept_identity_or_affiliation(asr_text)
-                    if intercept is not None:
-                        asyncio.create_task(self.client.chat_text_query(intercept))
-                        return
-                    
-                    # 处理机器人控制指令
-                    print(f"🔍 [调试] 检查语音识别结果: '{asr_text}'")
-                    robot_response = self.robot_controller.execute_command(asr_text)
-                    if robot_response:
-                        print(f"✅ [调试] 机器人控制指令被识别: {robot_response}")
-                        # 让AI说出"收到，正在xxxx"的确认语音
-                        cmd_string = None
-                        for command, string_cmd in self.robot_controller.string_command_map.items():
-                            if command in asr_text:
-                                cmd_string = string_cmd
-                                break
-                        
-                        if cmd_string:
-                            # 根据命令类型生成确认语音
-                            action_name = {
-                                "cmd_1": "前进",
-                                "cmd_2": "后退", 
-                                "cmd_3": "左转",
-                                "cmd_4": "右转",
-                                "cmd_5": "前往洗手间",
-                                "cmd_6": "前往电梯间"
-                            }.get(cmd_string, "执行指令")
-                            
-                            confirmation_text = f"收到，正在{action_name}"
-                            asyncio.create_task(self.client.chat_text_query(confirmation_text))
-                        return  # 机器人控制指令处理完成
-                    else:
-                        print(f"❌ [调试] 没有识别到机器人控制指令，将进入AI对话")
-                    
-                    # 智能知识库查询判断
-                    if self.should_use_knowledge_base(asr_text):
-                        try:
-                            # 查询知识库获取相关信息
-                            kb_results = self.knowledge_base.search(asr_text, top_k=3)
-                            if kb_results:
-                                context = "\n".join([f"参考资料{i+1}: {result['content'][:300]}..." 
-                                                   for i, result in enumerate(kb_results)])
-                                print(f"🧠 知识库查询: 找到{len(kb_results)}个相关条目")
-                                
-                                # 使用配置的知识库增强模板
-                                if hasattr(self, 'prompt_config') and self.prompt_config:
-                                    enhanced_query = self.prompt_config.knowledge_enhancement_templates["with_context"].format(
-                                        context=context,
-                                        user_question=asr_text
-                                    )
-                                else:
-                                    # 回退到默认模板（包含TeleAI说明）
-                                    enhanced_query = f"""📚 根据本地知识库找到以下相关信息：
-
-{context}
-
----
-用户问题：{asr_text}
-
-🏢 重要提醒：TeleAI = 中国电信人工智能研究院（简称）
-如果用户询问TeleAI，请明确说明这是中国电信人工智能研究院的简称，而不是聊天机器人产品。
-
-请基于上述知识库信息准确回答用户问题。如果知识库信息不完整，请说明并提供补充建议。回答要简洁、准确、适合语音播放。"""
-                                
-                                asyncio.create_task(self.client.chat_text_query(enhanced_query))
-                            else:
-                                # 知识库没有相关信息，使用配置的无上下文模板
-                                print("🧠 知识库未找到相关信息，使用通用对话")
-                                if hasattr(self, 'prompt_config') and self.prompt_config:
-                                    no_context_query = self.prompt_config.knowledge_enhancement_templates["no_context"].format(
-                                        user_question=asr_text
-                                    )
-                                    asyncio.create_task(self.client.chat_text_query(no_context_query))
-                                else:
-                                    # 回退到默认无上下文模板（包含TeleAI说明）
-                                    fallback_query = f"""用户问题：{asr_text}
-
-🏢 重要提醒：TeleAI = 中国电信人工智能研究院（简称）
-如果用户询问TeleAI，请明确说明这是中国电信人工智能研究院的简称，而不是聊天机器人产品。
-
-在本地知识库中未找到直接相关信息。请基于你的通用知识回答用户问题，并说明这是基于通用知识的回答。保持简洁，适合语音播放。"""
-                                    asyncio.create_task(self.client.chat_text_query(fallback_query))
-                                asyncio.create_task(self.client.chat_text_query(asr_text))
-                        except Exception as e:
-                            print(f"⚠️ 知识库查询失败: {e}")
-                            # fallback到普通对话
-                            asyncio.create_task(self.client.chat_text_query(asr_text))
-                    else:
-                        # 普通对话，不需要知识库
-                        print("💬 日常对话模式")
-                        # asyncio.create_task(self.client.chat_text_query(asr_text))  # 注释掉，让豆包自然回复
+                print(f"🎤 语音识别到: {asr_text}")
+                # 🔄 并行机器人指令监控 - 不干扰原有纯语音对话系统
+                robot_response = self.robot_controller.execute_command(asr_text)
 
             if event == 450:
                 print(f"清空缓存音频: {response['session_id']}")
@@ -946,14 +854,19 @@ class DragonDialogSession:
                 self.is_user_querying = True
 
             # 添加官方案例的event 350处理 - WSL2关键优化
-            if event == 350 and self.is_sending_chat_tts_text and payload_msg.get("tts_type") == "chat_tts_text":
-                print("🔄 事件350: 清空聊天TTS音频队列")
-                while not self.audio_queue.empty():
-                    try:
-                        self.audio_queue.get_nowait()
-                    except queue.Empty:
-                        continue
-                self.is_sending_chat_tts_text = False
+            if event == 350:
+                tts_type = payload_msg.get("tts_type")
+                print(f"🔄 事件350调试: is_sending_chat_tts_text={self.is_sending_chat_tts_text}, tts_type='{tts_type}'")
+                
+                if self.is_sending_chat_tts_text:
+                    print("🔄 事件350: AI对话TTS音频流结束，清空音频队列")
+                    while not self.audio_queue.empty():
+                        try:
+                            self.audio_queue.get_nowait()
+                        except queue.Empty:
+                            continue
+                    self.is_sending_chat_tts_text = False
+                    print("🎤 AI对话音频播放完成")
 
             if event == 459:
                 self.is_user_querying = False

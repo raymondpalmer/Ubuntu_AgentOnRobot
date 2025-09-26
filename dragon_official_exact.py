@@ -208,8 +208,29 @@ class DragonRobotController:
     def execute_command(self, text: str) -> str:
         """执行机器人控制指令"""
         text = text.strip()
+        print(f"🔍 [机器人控制器] 分析语音: '{text}'")
+        print(f"🔍 [机器人控制器] 语音长度: {len(text)}, 包含字符: {list(text)}")
         
         # 检查是否包含机器人控制指令
+        matched_commands = []
+        for command, cmd_string in self.string_command_map.items():
+            if command in text:
+                matched_commands.append((command, cmd_string))
+                print(f"✅ [机器人控制器] 匹配到命令: '{command}' -> {cmd_string}")
+        
+        if not matched_commands:
+            print(f"❌ [机器人控制器] 没有找到精确匹配的命令")
+            # 尝试模糊匹配处理语音识别错误
+            fuzzy_matched = self.fuzzy_match_command(text)
+            if fuzzy_matched:
+                print(f"🔧 [机器人控制器] 模糊匹配到: {fuzzy_matched}")
+                matched_commands = [fuzzy_matched]
+            else:
+                # 显示一些相近的命令作为参考
+                print("📝 [机器人控制器] 洗手间相关命令:")
+                for cmd in ["前往洗手间", "去洗手间", "洗手间在哪"]:
+                    print(f"   - '{cmd}'")
+        
         for command, cmd_string in self.string_command_map.items():
             if command in text:
                 self.current_action = command
@@ -230,6 +251,42 @@ class DragonRobotController:
                     return f"🤖 机器人执行: {command} -> {cmd_string}"
         
         return ""
+
+    def fuzzy_match_command(self, text: str) -> tuple:
+        """模糊匹配命令，处理语音识别错误"""
+        # 常见的语音识别错误映射
+        fuzzy_patterns = {
+            # 洗手间相关
+            "西手间": "洗手间",
+            "洗手剪": "洗手间", 
+            "洗受间": "洗手间",
+            "系手间": "洗手间",
+            # 电梯间相关  
+            "第题间": "电梯间",
+            "电提间": "电梯间",
+            "店梯间": "电梯间",
+            # 前进相关
+            "钱进": "前进",
+            "千进": "前进",
+            # 其他可能错误
+            "座转": "左转",
+            "做转": "左转",
+        }
+        
+        # 替换可能的错误
+        corrected_text = text
+        for error, correct in fuzzy_patterns.items():
+            corrected_text = corrected_text.replace(error, correct)
+        
+        if corrected_text != text:
+            print(f"🔧 [模糊匹配] 纠正: '{text}' -> '{corrected_text}'")
+            
+            # 用纠正后的文本重新匹配
+            for command, cmd_string in self.string_command_map.items():
+                if command in corrected_text:
+                    return (command, cmd_string)
+        
+        return None
 
     def send_twist_command(self, linear_x: float, angular_z: float):
         """发送ROS Twist命令"""
@@ -748,12 +805,40 @@ class DragonDialogSession:
                 print("⚠️ 音频不可用，跳过音频数据")
             
         elif response['message_type'] == 'SERVER_FULL_RESPONSE':
-            print(f"🔄 服务器响应: 事件{response.get('event')}")
             event = response.get('event')
             payload_msg = response.get('payload_msg', {})
+            print(f"🔄 服务器响应: 事件{event}")
+            print(f"🔍 [调试] payload_msg keys: {list(payload_msg.keys())}")
+            if 'asr_result' in payload_msg:
+                print(f"🎯 [调试] 发现asr_result: {payload_msg['asr_result']}")
 
-            # 处理ASR识别结果（事件550/559）
-            if event in [550, 559] and 'asr_result' in payload_msg:
+            # 处理ASR识别结果 - 检查多种可能的事件和字段
+            asr_text = None
+            
+            # 方法1: 直接的asr_result字段
+            if 'asr_result' in payload_msg:
+                asr_text = payload_msg['asr_result']
+                print(f"📍 [ASR调试] 从asr_result获得: {asr_text}")
+            
+            # 方法2: 事件451中的results字段
+            elif event == 451 and 'results' in payload_msg:
+                results = payload_msg['results']
+                if results and len(results) > 0:
+                    # 查找最新的识别结果
+                    for result in results:
+                        if isinstance(result, dict) and 'text' in result:
+                            asr_text = result['text']
+                            print(f"📍 [ASR调试] 从事件451获得: {asr_text}")
+                            break
+            
+            # 方法3: content字段 (可能包含识别结果)
+            elif 'content' in payload_msg and event == 550:
+                content = payload_msg['content']
+                if content and isinstance(content, str) and len(content.strip()) > 0:
+                    asr_text = content
+                    print(f"📍 [ASR调试] 从content获得: {asr_text}")
+
+            if asr_text and asr_text.strip():
                 asr_text = payload_msg['asr_result']
                 if asr_text.strip():
                     print(f"🎤 识别到: {asr_text}")
@@ -765,9 +850,10 @@ class DragonDialogSession:
                         return
                     
                     # 处理机器人控制指令
+                    print(f"🔍 [调试] 检查语音识别结果: '{asr_text}'")
                     robot_response = self.robot_controller.execute_command(asr_text)
                     if robot_response:
-                        print(robot_response)
+                        print(f"✅ [调试] 机器人控制指令被识别: {robot_response}")
                         # 让AI说出"收到，正在xxxx"的确认语音
                         cmd_string = None
                         for command, string_cmd in self.robot_controller.string_command_map.items():
@@ -789,6 +875,8 @@ class DragonDialogSession:
                             confirmation_text = f"收到，正在{action_name}"
                             asyncio.create_task(self.client.chat_text_query(confirmation_text))
                         return  # 机器人控制指令处理完成
+                    else:
+                        print(f"❌ [调试] 没有识别到机器人控制指令，将进入AI对话")
                     
                     # 智能知识库查询判断
                     if self.should_use_knowledge_base(asr_text):

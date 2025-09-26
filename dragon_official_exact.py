@@ -213,8 +213,13 @@ class DragonRobotController:
         for command, cmd_string in self.string_command_map.items():
             if command in text:
                 self.current_action = command
-                # 输出字符串命令
-                print(f"🤖 机器人指令: {cmd_string}")
+                
+                # 明显输出机器人命令
+                print("=" * 60)
+                print(f"🤖 【机器人控制指令】: {cmd_string}")
+                print(f"📝 用户语音: '{command}'")
+                print(f"⚡ 执行时间: {time.strftime('%H:%M:%S')}")
+                print("=" * 60)
                 
                 # 可选：同时执行ROS命令（如果启用）
                 if self.ros_enabled and command in self.command_map:
@@ -763,7 +768,27 @@ class DragonDialogSession:
                     robot_response = self.robot_controller.execute_command(asr_text)
                     if robot_response:
                         print(robot_response)
-                        return  # 机器人控制指令不需要进一步处理
+                        # 让AI说出"收到，正在xxxx"的确认语音
+                        cmd_string = None
+                        for command, string_cmd in self.robot_controller.string_command_map.items():
+                            if command in asr_text:
+                                cmd_string = string_cmd
+                                break
+                        
+                        if cmd_string:
+                            # 根据命令类型生成确认语音
+                            action_name = {
+                                "cmd_1": "前进",
+                                "cmd_2": "后退", 
+                                "cmd_3": "左转",
+                                "cmd_4": "右转",
+                                "cmd_5": "前往洗手间",
+                                "cmd_6": "前往电梯间"
+                            }.get(cmd_string, "执行指令")
+                            
+                            confirmation_text = f"收到，正在{action_name}"
+                            asyncio.create_task(self.client.chat_text_query(confirmation_text))
+                        return  # 机器人控制指令处理完成
                     
                     # 智能知识库查询判断
                     if self.should_use_knowledge_base(asr_text):

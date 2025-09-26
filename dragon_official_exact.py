@@ -4,6 +4,14 @@ Dragon机器人语音系统 - 基于官方豆包（火山引擎）实时语音�
 - 输出 Float32 / 24000Hz / 单声道 / chunk=3200
 - 实时写入 PyAudio，无文件回放
 保留机器人控制、知识库与 Prompt 集成。
+
+机器人控制命令映射：
+- cmd_1: 前进/向前/往前/机器人前进 等
+- cmd_2: 后退/向后/往后/机器人后退 等  
+- cmd_3: 左转/向左/往左/机器人左转 等
+- cmd_4: 右转/向右/往右/机器人右转 等
+- cmd_5: 停止/机器人停止 等
+- cmd_6: (预留)
 """
 
 import os
@@ -96,7 +104,42 @@ class DragonRobotController:
         self.ros_enabled = ROS_AVAILABLE and self.init_ros()
         self.current_action = "停止"
         
-        # 指令映射
+        # 字符串命令映射 (cmd_1 到 cmd_6)
+        self.string_command_map = {
+            "前进": "cmd_1",
+            "后退": "cmd_2", 
+            "左转": "cmd_3",
+            "右转": "cmd_4",
+            "停止": "cmd_5",
+            "向前": "cmd_1",
+            "向后": "cmd_2",
+            "向左": "cmd_3",
+            "向右": "cmd_4",
+            "往前": "cmd_1",
+            "往后": "cmd_2",
+            "往左": "cmd_3",
+            "往右": "cmd_4",
+            "前走": "cmd_1",
+            "后走": "cmd_2",
+            "左拐": "cmd_3",
+            "右拐": "cmd_4",
+            "走前面": "cmd_1",
+            "走后面": "cmd_2",
+            "左边": "cmd_3",
+            "右边": "cmd_4",
+            "机器人前进": "cmd_1",
+            "机器人后退": "cmd_2",
+            "机器人左转": "cmd_3",
+            "机器人右转": "cmd_4",
+            "机器人停止": "cmd_5",
+            "让机器人前进": "cmd_1",
+            "让机器人后退": "cmd_2",
+            "让机器人左转": "cmd_3",
+            "让机器人右转": "cmd_4",
+            "让机器人停止": "cmd_5",
+        }
+        
+        # ROS指令映射 (保留用于ROS模式)
         self.command_map = {
             "前进": (0.5, 0.0),
             "后退": (-0.3, 0.0), 
@@ -146,15 +189,19 @@ class DragonRobotController:
         text = text.strip()
         
         # 检查是否包含机器人控制指令
-        for command, (linear_x, angular_z) in self.command_map.items():
+        for command, cmd_string in self.string_command_map.items():
             if command in text:
                 self.current_action = command
-                if self.ros_enabled:
+                # 输出字符串命令
+                print(f"🤖 机器人指令: {cmd_string}")
+                
+                # 可选：同时执行ROS命令（如果启用）
+                if self.ros_enabled and command in self.command_map:
+                    linear_x, angular_z = self.command_map[command]
                     self.send_twist_command(linear_x, angular_z)
-                    return f"✅ 机器人执行: {command}"
+                    return f"✅ 机器人执行: {command} -> {cmd_string}"
                 else:
-                    print(f"🤖 模拟执行: {command} (x={linear_x}, z={angular_z})")
-                    return f"🤖 模拟执行: {command}"
+                    return f"🤖 机器人执行: {command} -> {cmd_string}"
         
         return ""
 

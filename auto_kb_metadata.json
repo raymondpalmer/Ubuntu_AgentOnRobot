@@ -1,816 +1,573 @@
 {
-  "last_scan": "2025-09-23T15:30:47.318694",
+  "last_scan": "2025-09-24T10:29:33.213531",
   "files": {
     "knowledge_base/langchain_kb/documents/WAIC 2025 TeleAI 深度参会，分享前瞻思考与产业洞察.pdf": {
       "size": 1550538,
       "hash": "01d97fa0765bb26259e73397fa87f7ec",
       "last_modified": 1758080197.0,
-      "last_checked": 1758612642.7846892,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.2544653,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/AudioSpa Spatializing Sound Events with Text.pdf": {
       "size": 4797122,
       "hash": "815b4003c46f5d711939330fe7791c38",
       "last_modified": 1758091690.0,
-      "last_checked": 1758612642.9067078,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.3788075,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/中国电信花卷数字人提供全栈技术、全品类、全场景的定制化解决方案.pdf": {
       "size": 717004,
       "hash": "a24d59e5162a6861028fb432ee6ffb25",
       "last_modified": 1758080586.0,
-      "last_checked": 1758612642.9122448,
-      "category": "tech",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.4021072,
+      "category": "tech"
     },
     "knowledge_base/langchain_kb/documents/AI Flow Perspectives, Scenarios, and approaches.pdf": {
       "size": 2488509,
       "hash": "b59ca4fcd6b48fb306e980f06806cd3a",
       "last_modified": 1758091309.0,
-      "last_checked": 1758612642.9762154,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.4649286,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Water-related optical imaging From algorithm to hardware.pdf": {
       "size": 5367241,
       "hash": "e4dae1f1d288d142780e8cac6953f32f",
       "last_modified": 1758090684.0,
-      "last_checked": 1758612643.1216264,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.5968657,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/中国电信发布星小辰终端智能体：防诈、办公、生活全搞定，麦芒40首发搭载！.pdf": {
       "size": 1673473,
       "hash": "d70d0fd9e503bee2fd4ccf091527e0c5",
       "last_modified": 1758080561.0,
-      "last_checked": 1758612643.1349804,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.6408882,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Revisiting Multi-Agent World Modeling from a diffusion-inspired perspective.pdf": {
       "size": 5863797,
       "hash": "90ef2b29bc1551995d7d35929e95489e",
       "last_modified": 1758091931.0,
-      "last_checked": 1758612643.279822,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.7896373,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/图像信息量度量_李学龙.pdf": {
       "size": 520318,
       "hash": "b64fc91af3e161ce8955c9c4d033d659",
       "last_modified": 1758090309.0,
-      "last_checked": 1758612643.28452,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.804827,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/MoRE Mixture of Residual Experts for Humanoid Lifelike Gaits Learning on Complex Terrains.pdf": {
       "size": 1473347,
       "hash": "0c7e5023d31f2b7cb8ec48e9ae9c41a0",
       "last_modified": 1758092959.0,
-      "last_checked": 1758612643.3267925,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.842766,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/中电信人工智能刘翼：天翼AI星辰大模型赋能千行百业 塑造新质生产力引擎.pdf": {
       "size": 2223818,
       "hash": "5a2412c037f4df08b447e6069b5632b8",
       "last_modified": 1758080441.0,
-      "last_checked": 1758612643.3420446,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.8992732,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/TeleAI 获“人工智能向善全球峰会”杰出案例奖，以智传网 AI Flow 助力绿色多集群构建.pdf": {
       "size": 3400692,
       "hash": "322d263159afb3a511431f27302ec10e",
       "last_modified": 1758080404.0,
-      "last_checked": 1758612643.4302137,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.9845257,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/52B to 1T Lessons Learned via Tele-FLM Series.pdf": {
       "size": 115329,
       "hash": "6b85b43b8f1a0cc51ae483ef60f4a884",
       "last_modified": 1758092091.0,
-      "last_checked": 1758612643.4330268,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680967.9900267,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Bridging the Gap between Continuous and informative discrete representations by random product quantization.pdf": {
       "size": 1058081,
       "hash": "57a16f6bd6e6b79e36d15e1e8c931b57",
       "last_modified": 1758092031.0,
-      "last_checked": 1758612643.4622517,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.018195,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/AUTO_KNOWLEDGE_BASE_GUIDE.md": {
       "size": 5879,
       "hash": "a8541801350bb862c27da4cb83b897b3",
       "last_modified": 1758078914.0,
-      "last_checked": 1758612643.464074,
-      "category": "manual",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.0196962,
+      "category": "manual"
     },
     "knowledge_base/langchain_kb/documents/TeleAI at SemEval-2025 Task 8 Advancing Table Reasoning Framework.pdf": {
       "size": 1463736,
       "hash": "404c7b163a1c6369d4f1bb947c0bd50b",
       "last_modified": 1758090974.0,
-      "last_checked": 1758612643.5011559,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.0572984,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/TeleChat2.5.pdf": {
       "size": 2051651,
       "hash": "81da9437cd2a3732254371748f2867f1",
       "last_modified": 1758079440.0,
-      "last_checked": 1758612643.558035,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.1093717,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Learning_Multi-Dimensional_Speaker_Localization_Axis_Partitioning_Unbiased_Label_Distribution_and_Data_Augmentation.pdf": {
       "size": 2887810,
       "hash": "fc00133d06cfa45f48ba8f588791e6f7",
       "last_modified": 1758091677.0,
-      "last_checked": 1758612643.5895102,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.1826823,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/T1 模型是 TeleChat 系列专注于复杂推理的模型.pdf": {
       "size": 2114956,
       "hash": "f566255583682a90b5d500ddd9cb4003",
       "last_modified": 1758079423.0,
-      "last_checked": 1758612643.645218,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.237364,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/MTVCrafter 4D Motion Tokenization for open-world human image animation.pdf": {
       "size": 14911051,
       "hash": "d1179cb1fecb2bd46933ef906fc0b651",
       "last_modified": 1758091907.0,
-      "last_checked": 1758612643.948816,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.600952,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Preface Water-related vision.pdf": {
       "size": 112325,
       "hash": "74c8c54e165ce48463f3c0e0c3525400",
       "last_modified": 1758090732.0,
-      "last_checked": 1758612643.954964,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.60632,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/中国电信人工智能研究院（TeleAI）正式揭牌，李学龙（9406）任院长.pdf": {
       "size": 2117261,
       "hash": "3e9b12f609280acd874864bd618e4e70",
       "last_modified": 1758078212.0,
-      "last_checked": 1758612643.973311,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.6601484,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/A SURVEY OF EMBODIED ARTIFICIAL INTELLIGENCE DATA.pdf": {
       "size": 2315334,
       "hash": "6bece7655a6910a4c53d3beaddb5ef16",
       "last_modified": 1758092804.0,
-      "last_checked": 1758612644.0335329,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.7186768,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Tele-FLM Technical Report.pdf": {
       "size": 1697442,
       "hash": "bac7daf6b88dbbade61f7a53cb96bebb",
       "last_modified": 1758091386.0,
-      "last_checked": 1758612644.077078,
-      "category": "tech",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680968.7629693,
+      "category": "tech"
     },
     "knowledge_base/langchain_kb/documents/SAM-E Leveraging Visual Foundation Model with Sequence Imitation for Embodied Manipulation.pdf": {
       "size": 9739922,
       "hash": "f950fb0479fcae3d76458674ac6978c0",
       "last_modified": 1758092713.0,
-      "last_checked": 1758612644.3139715,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.001197,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/深度学习在光纤成像中的应用进展（特邀）_孙佳伟.pdf": {
       "size": 1821437,
       "hash": "461ff9ecb381b2c54ca871fc58378480",
       "last_modified": 1758090087.0,
-      "last_checked": 1758612644.3311949,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.0480626,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/README.md": {
       "size": 17081,
       "hash": "20a3fc5c04276cc7b8cd5af8d1963076",
       "last_modified": 1758079040.0,
-      "last_checked": 1758612644.3339407,
-      "category": "official",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.050299,
+      "category": "official"
     },
     "knowledge_base/langchain_kb/documents/ACM MM 2025 TeleAI 多项成果入选，聚焦多模态能力增强、跨模态对齐及安全保障.pdf": {
       "size": 3991740,
       "hash": "c3010d6d8456584fffa46401bba9d92b",
       "last_modified": 1758079954.0,
-      "last_checked": 1758612644.4229825,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.1528296,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/深度学习在光纤成像中的应用进展（特邀）_孙佳伟 (1).pdf": {
       "size": 1821437,
       "hash": "a9479caec63406ba7ce5c41b94ce04f8",
       "last_modified": 1758090876.0,
-      "last_checked": 1758612644.437008,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.1999683,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/解码“智传网”：走进中国电信人工智能研究院.pdf": {
       "size": 5406738,
       "hash": "e40f6a26329a7f052582ea2548cc691b",
       "last_modified": 1758078705.0,
-      "last_checked": 1758612644.4735537,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.332899,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/DISENTANGLE AND DENOISE TACKLING CONTEXT MISALIGNMENT FOR VIDEO.pdf": {
       "size": 7119138,
       "hash": "250f13747ffaa8224613b7452a9a588a",
       "last_modified": 1758091801.0,
-      "last_checked": 1758612644.6473672,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.5078888,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/中电信人工智能公司与中国纺织工业联合会签署战略合作协议，共促纺织业智能化升级.pdf": {
       "size": 2237955,
       "hash": "e1ee3caefe082f938578ff22615458e7",
       "last_modified": 1758080572.0,
-      "last_checked": 1758612644.6673355,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.5645907,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/TeleAI 科技前沿论坛  信容律、同源律、集成律构建智传网（AI Flow）理论体系.pdf": {
       "size": 2610328,
       "hash": "608cb6a1371e464ffe11f1ef50e0ea6c",
       "last_modified": 1758080266.0,
-      "last_checked": 1758612644.7342715,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.6310933,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/《计算机科学与探索》组织“极端环境图像处理与应用”专题征文，李学龙教授任特邀编辑.pdf": {
       "size": 1705390,
       "hash": "9e581159e90bb3924541d04cc5a33b02",
       "last_modified": 1758080543.0,
-      "last_checked": 1758612644.7464225,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.675594,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Robust polari...posure fusion_YIFU ZHOU.pdf": {
       "size": 1041753,
       "hash": "f88e54fa0a1563776c0de9dd37b80935",
       "last_modified": 1758090879.0,
-      "last_checked": 1758612644.7760289,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.7038183,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/面向含噪中规模量子处理器的量子机器学习_石金晶.pdf": {
       "size": 4997441,
       "hash": "dbc9b850fa97359cd3479176b1af5526",
       "last_modified": 1758090170.0,
-      "last_checked": 1758612644.814885,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.8272479,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/人工智能伦理计算_高漪澜.pdf": {
       "size": 854174,
       "hash": "bba49c088614d868ffb8b6c17b6e64d2",
       "last_modified": 1758090296.0,
-      "last_checked": 1758612644.8215575,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.8509886,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/双料冠军！TeleAI 登顶 IJCAI 2025 多模态深度鉴伪挑战赛.pdf": {
       "size": 3260102,
       "hash": "95e84e08285ca99a9f04d126c588e435",
       "last_modified": 1758080111.0,
-      "last_checked": 1758612644.8422618,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.9326723,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/AUV水下回收光学导引（特邀）_李学龙.pdf": {
       "size": 2102544,
       "hash": "7feca4bbb800da66a74a0b5e8ee16d00",
       "last_modified": 1758090122.0,
-      "last_checked": 1758612644.8763788,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680969.9861465,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Learning a Su...Factorization_Feiping Nie.pdf": {
       "size": 683144,
       "hash": "139c5a8c3d90463bf8599bd2c420a762",
       "last_modified": 1758090875.0,
-      "last_checked": 1758612644.8958116,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.0056064,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/自主水下航行器多分支网络光学导引定位方法_朱若澜.pdf": {
       "size": 2336391,
       "hash": "13b0ddbb5be0e65ee89ab831baff159a",
       "last_modified": 1758090100.0,
-      "last_checked": 1758612644.9117131,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.0650191,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Fast and robu...th monitoring_Cong Wang.pdf": {
       "size": 2687201,
       "hash": "d38e031cb05f695f30e6dc51b8fba396",
       "last_modified": 1758090839.0,
-      "last_checked": 1758612644.979578,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.1326234,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Towards Efficient LLM Grounding for Embodied Multi-Agent Collaboration.pdf": {
       "size": 6038944,
       "hash": "c2bd8ae74001d2ccc57c3e9b6b283b88",
       "last_modified": 1758092780.0,
-      "last_checked": 1758612645.1269553,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.281021,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/iOptics 新刊发布  李学龙教授受邀担任副主编并发表创刊文章.pdf": {
       "size": 1566518,
       "hash": "aaebf5b1a73109cabec7e827e8e73163",
       "last_modified": 1758080334.0,
-      "last_checked": 1758612645.1381521,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.321482,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/中国电信人工智能研究院发布首个央企全自研视频生成大模型.pdf": {
       "size": 2141388,
       "hash": "e2bc952850f59401b0a5883006a829f8",
       "last_modified": 1758078805.0,
-      "last_checked": 1758612645.152224,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.3752484,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/展厅2.0讲解词V2 0903.docx": {
       "size": 19150,
       "hash": "af8b7285d4ac418dfefaea1d0632baec",
       "last_modified": 1757444431.0,
-      "last_checked": 1758612645.1533408,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.377333,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/“国云注智 聚力向新” 中国电信携AI最新成果亮相2024智算云生态大会.pdf": {
       "size": 802884,
       "hash": "f852d232a315bb60721367ffbcb5443d",
       "last_modified": 1758078148.0,
-      "last_checked": 1758612645.1592724,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.3987937,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/关于teleai.pdf": {
       "size": 425772,
       "hash": "0dcf589f1999c5b0a2509749b2198af5",
       "last_modified": 1758079768.0,
-      "last_checked": 1758612645.1632292,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.4115002,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/teleai_简介.md": {
       "size": 0,
       "hash": "d41d8cd98f00b204e9800998ecf8427e",
       "last_modified": 1758268776.0,
-      "last_checked": 1758612645.1641808,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.412023,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/连接未来 智创无限  TeleAI 顺利举办“中国电信 2025 年博士夏令营 AI 方向专场.pdf": {
       "size": 2027063,
       "hash": "1d09946262396121df10c0d0c23a371b",
       "last_modified": 1758080051.0,
-      "last_checked": 1758612645.1774638,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.4632914,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Sentence Segmentation and Punctuation for Ancient Books Based on Supervised In-context Training.pdf": {
       "size": 302152,
       "hash": "27b950a035672e2ae35dcd50f8bc3109",
       "last_modified": 1758091279.0,
-      "last_checked": 1758612645.1883247,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.4735427,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/CREST Cross-modal Resonance through Evidential Deep.pdf": {
       "size": 2971432,
       "hash": "374f4ecf32573157db48a5c4bd868ad2",
       "last_modified": 1758091091.0,
-      "last_checked": 1758612645.2598643,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.5473843,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/连续上央视！TeleAI 讲了什么？.pdf": {
       "size": 1204045,
       "hash": "1924e0aaddeb5356004c072728497840",
       "last_modified": 1758080133.0,
-      "last_checked": 1758612645.2684958,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.5791194,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/《光学学报》封面文章  李学龙教授团队：AUV 水下回收光学导引.pdf": {
       "size": 2537493,
       "hash": "f917d5be2c115e7cff9e75e8c8638f8a",
       "last_modified": 1758080457.0,
-      "last_checked": 1758612645.2862613,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.6435418,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/ICML 2025  TeleAI 聚焦正激励噪声与多智能体隐私安全.pdf": {
       "size": 2237155,
       "hash": "bac3c802e0fd37aa780070b7e3b6e53a",
       "last_modified": 1758080427.0,
-      "last_checked": 1758612645.3441458,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.701078,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/“AI国家队”中国电信天翼AI，入选2025“人工智能+”新质生产力领航企业榜单.pdf": {
       "size": 2918699,
       "hash": "71835c98e923a48451790902c5424d5d",
       "last_modified": 1758079788.0,
-      "last_checked": 1758612645.363092,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.774424,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Deep_Graph_Multi-View_Representation_Learning_With_Self-Augmented_View_Fusion.pdf": {
       "size": 2586114,
       "hash": "ed73c8bbe3c01e088d252b845d0d0f38",
       "last_modified": 1758091369.0,
-      "last_checked": 1758612645.4203956,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.8398402,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/在“史上最火”WAIC 中国电信首次发布AI全景图谱.pdf": {
       "size": 4748715,
       "hash": "4fe1cb2f2b75645d8ae44d3fe35a76bc",
       "last_modified": 1758078877.0,
-      "last_checked": 1758612645.452686,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680970.9568086,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/HumanoidGen Data Generation for Bimanual Dexterous Manipulation via LLM Reasoning.pdf": {
       "size": 13509087,
       "hash": "a1b2daa79caab6da980f238e81433ab4",
       "last_modified": 1758093050.0,
-      "last_checked": 1758612645.7541096,
-      "category": "manual",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.2872405,
+      "category": "manual"
     },
     "knowledge_base/langchain_kb/documents/WAIC 2025  入选 SAIL 奖 TOP30，TeleAI 国产大模型深度解析（第2弹）.pdf": {
       "size": 4372279,
       "hash": "34709ef8d394a6ac149ddcb113052565",
       "last_modified": 1758080315.0,
-      "last_checked": 1758612645.8653052,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.3950021,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/WAIC 2025  “TeleAI 青年智算计划”正式启动.pdf": {
       "size": 708069,
       "hash": "caa19e1a743ec7973bdbafd73a0672ad",
       "last_modified": 1758080239.0,
-      "last_checked": 1758612645.8877013,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.4145079,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/baidubaike.pdf": {
       "size": 2739829,
       "hash": "10d073f85779883dd5a0649fa987e6a9",
       "last_modified": 1758078069.0,
-      "last_checked": 1758612645.9181874,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.483349,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/TeleAI 组织出版《反无人机目标感知技术：基于视觉智能》，推动空域安全落到实处.pdf": {
       "size": 2262748,
       "hash": "74b15cf7b14ec945aae24fca18dcf644",
       "last_modified": 1758080078.0,
-      "last_checked": 1758612645.9829166,
-      "category": "tech",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.5403068,
+      "category": "tech"
     },
     "knowledge_base/langchain_kb/documents/账号密码api.txt": {
       "size": 250,
       "hash": "9b25ff1d2a5576139c1e54b580ae286c",
       "last_modified": 1758596392.0,
-      "last_checked": 1758612645.9858878,
-      "category": "tech",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.5413394,
+      "category": "tech"
     },
     "knowledge_base/langchain_kb/documents/TeleAI_人工智能的未来在智传网_中国电信人工智能研究院.pdf": {
       "size": 81168,
       "hash": "619d6068f6224dbf6409801d2556d060",
       "last_modified": 1758090104.0,
-      "last_checked": 1758612645.9908643,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.5452223,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/中国电信穿透式监管体系入选首批央企AI战略性高价值场景.pdf": {
       "size": 767193,
       "hash": "e5ea65d2ed23c14c874fe536a66d5b04",
       "last_modified": 1758078345.0,
-      "last_checked": 1758612645.9989297,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.566933,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/中国电信人工智能研究院（TeleAI）以“智传网 AI Flow”为核心绘制AI新图景.pdf": {
       "size": 1292767,
       "hash": "d6953d4160665a6c2b39f3f8d7bd90e7",
       "last_modified": 1758078395.0,
-      "last_checked": 1758612646.0083175,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.6012356,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/TeleAI at SemEval-2025 Task 11 Bridging the Gap in Text-Based Emotion.pdf": {
       "size": 204823,
       "hash": "07101339c13a5ea1062ce9a54df6a5f7",
       "last_modified": 1758091004.0,
-      "last_checked": 1758612646.0171292,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.6092668,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/ACL 2025  TeleAI 一冠一亚！多项成果推动大模型创新与应用.pdf": {
       "size": 2654057,
       "hash": "f22b5ea9cbab38808d570449bbf18eb5",
       "last_modified": 1758080298.0,
-      "last_checked": 1758612646.0759838,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.675488,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/中国电信刘桂清：拥抱AI，向善而行.pdf": {
       "size": 1815281,
       "hash": "b2679a8f0604f65ec82bdc544f767a97",
       "last_modified": 1758080369.0,
-      "last_checked": 1758612646.0961878,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.7228866,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Autonomous Driving in Unstructured Environments.pdf": {
       "size": 6218825,
       "hash": "2f545b51e00a8e8bf47536d5ae03cf4c",
       "last_modified": 1758091533.0,
-      "last_checked": 1758612646.258499,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.882196,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/星辰语义大模型-TeleChat2.pdf": {
       "size": 2947341,
       "hash": "190d085116229b12e43a2d24bd485c09",
       "last_modified": 1758079387.0,
-      "last_checked": 1758612646.2819076,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680971.9556289,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/星辰聚智·才启未来：2025世界人工智能大会中国电信发布系列前沿能力及AI产品.pdf": {
       "size": 4264391,
       "hash": "941a4c1c67f7b52a781f4e510f89c7a8",
       "last_modified": 1758078252.0,
-      "last_checked": 1758612646.3098826,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680972.061092,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Learn as Individuals, Evolve as a Team Multi-agent LLMs Adaptation in Embodied Environments.pdf": {
       "size": 1291191,
       "hash": "8f717d4095674a271e4ff34b5721bcac",
       "last_modified": 1758092766.0,
-      "last_checked": 1758612646.3563216,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680972.0954556,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/具身VLA后训练：TeleAI提出潜空间引导的VLA跨本体泛化方法.pdf": {
       "size": 4294734,
       "hash": "88e26e1a55a701c0e9b0af840aac81d1",
       "last_modified": 1758079613.0,
-      "last_checked": 1758612646.396561,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680972.2024875,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/Modality-experts coordinated adaptation for large multimodal models.pdf": {
       "size": 4146951,
       "hash": "0eb078f7b56a153c75a82bc06d4b2ccd",
       "last_modified": 1758090808.0,
-      "last_checked": 1758612646.53062,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680972.304822,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/0D9CA62E47324917A61A7770C56CF00E.pdf": {
       "size": 19103061,
       "hash": "2ac95a3b9608af95cc2c1e6fbe965939",
       "last_modified": 1758092264.0,
-      "last_checked": 1758612646.9830065,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680972.769192,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/TECHNICAL REPORT OF TELECHAT2, TELECHAT2.5.pdf": {
       "size": 1039947,
       "hash": "10c989b9deaa93d736f1f4bb32751430",
       "last_modified": 1758091184.0,
-      "last_checked": 1758612647.0100918,
-      "category": "tech",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680972.7973552,
+      "category": "tech"
     },
     "knowledge_base/langchain_kb/documents/Corrigendum to “MA-FSAR Multimodal Adaptation of CLIP for few-shot.pdf": {
       "size": 260839,
       "hash": "850b62904724f7c3bffa3a34734c3255",
       "last_modified": 1758091518.0,
-      "last_checked": 1758612647.020101,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680972.8066378,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/大模型驱动的具身智能_发展与挑战_白辰甲.pdf": {
       "size": 1374625,
       "hash": "4d6dc98b780e9be40c01601b1848345a",
       "last_modified": 1758090037.0,
-      "last_checked": 1758612647.0330296,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680972.8428085,
+      "category": "general"
     },
     "knowledge_base/langchain_kb/documents/KungfuBot Physics-Based Humanoid Whole-Body Control for Learning Highly-Dynamic Skills.pdf": {
       "size": 12582480,
       "hash": "9d4ee4fe36dd09a7c3dd3a98088a04b8",
       "last_modified": 1758092938.0,
-      "last_checked": 1758612647.2747984,
-      "category": "robot",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680973.1499865,
+      "category": "robot"
     },
     "knowledge_base/langchain_kb/documents/基于目标搜寻和细节增强的水下单像素成像方法_陈翼钒.pdf": {
       "size": 2414647,
       "hash": "6f47c7e0b06f3ffd2f93b905b68214a7",
       "last_modified": 1758090311.0,
-      "last_checked": 1758612647.2952776,
-      "category": "general",
-      "in_kb": false,
-      "status": "skipped_empty_content",
-      "skip_reason": "Empty content or scanned PDF"
+      "last_checked": 1758680973.211277,
+      "category": "general"
     }
   },
-  "scan_count": 30
+  "scan_count": 33
 }

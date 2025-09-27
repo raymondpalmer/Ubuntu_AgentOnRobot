@@ -24,7 +24,7 @@ import uuid
 import queue
 import asyncio
 import threading
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, Callable, List
 from dataclasses import dataclass
 
 import pyaudio
@@ -86,6 +86,94 @@ DEBUG_AUDIO = os.environ.get("DRAGON_DEBUG_AUDIO", "0") == "1"
 def dprint(*args, **kwargs):
     if DEBUG_AUDIO:
         print(*args, **kwargs)
+
+
+class EventInterface:
+    """简单事件接口，支持注册回调，同时保留打印输出。"""
+
+    _voice_callbacks: List[Callable[[str], None]] = []
+    _command_callbacks: List[Callable[[str, str], None]] = []
+    _navigation_callbacks: List[Callable[[str], None]] = []
+
+    @classmethod
+    def register_voice_callback(cls, callback: Callable[[str], None]) -> None:
+        if callable(callback):
+            cls._voice_callbacks.append(callback)
+
+    @classmethod
+    def register_command_callback(cls, callback: Callable[[str, str], None]) -> None:
+        if callable(callback):
+            cls._command_callbacks.append(callback)
+
+    @classmethod
+    def emit_voice_event(cls, event_type: str) -> None:
+        """event_type: 'voice_start' or 'voice_end'"""
+        print(event_type)
+        for callback in list(cls._voice_callbacks):
+            try:
+                callback(event_type)
+            except Exception as e:
+                print(f"⚠️ voice事件回调失败: {e}")
+
+    @classmethod
+    def emit_command_event(cls, cmd_id: str, command_phrase: str) -> None:
+        """cmd_id: cmd_1 ~ cmd_6，command_phrase: 原始命令词"""
+        print(cmd_id)
+        for callback in list(cls._command_callbacks):
+            try:
+                callback(cmd_id, command_phrase)
+            except Exception as e:
+                print(f"⚠️ 命令事件回调失败: {e}")
+
+    @classmethod
+    def voice_start(cls) -> None:
+        cls.emit_voice_event("voice_start")
+
+    @classmethod
+    def voice_end(cls) -> None:
+        cls.emit_voice_event("voice_end")
+
+    @classmethod
+    def command(cls, cmd_id: str, command_phrase: str = "") -> None:
+        cls.emit_command_event(cmd_id, command_phrase)
+
+    @classmethod
+    def register_navigation_callback(cls, callback: Callable[[str], None]) -> None:
+        if callable(callback):
+            cls._navigation_callbacks.append(callback)
+
+    @classmethod
+    def emit_navigation_event(cls, point_key: str) -> None:
+        print(point_key)
+        for callback in list(cls._navigation_callbacks):
+            try:
+                callback(point_key)
+            except Exception as e:
+                print(f"⚠️ 导航事件回调失败: {e}")
+
+    @classmethod
+    def point(cls, point_key: str) -> None:
+        cls.emit_navigation_event(point_key)
+
+    @classmethod
+    def point1(cls) -> None:
+        cls.emit_navigation_event("point1")
+
+    @classmethod
+    def point2(cls) -> None:
+        cls.emit_navigation_event("point2")
+
+    @classmethod
+    def point3(cls) -> None:
+        cls.emit_navigation_event("point3")
+
+    @classmethod
+    def point4(cls) -> None:
+        cls.emit_navigation_event("point4")
+
+    @classmethod
+    def point5(cls) -> None:
+        cls.emit_navigation_event("point5")
 
 
 @dataclass
@@ -234,6 +322,7 @@ class DragonRobotController:
         for command, cmd_string in self.string_command_map.items():
             if command in text:
                 self.current_action = command
+                EventInterface.emit_command_event(cmd_string, command)
                 
                 # 明显输出机器人命令
                 print("=" * 60)
@@ -509,6 +598,20 @@ class DragonDialogSession:
         self.is_user_querying = False
         self.is_sending_chat_tts_text = False
         self.audio_buffer = b''
+        self.is_voice_playback_active = False
+        self.loop = None
+        self.microphone_muted = False
+        self.mic_muted_due_to_navigation = False
+        self.pending_navigation_point = None
+        self.navigation_prompts = {
+            "point1": "请你一字不落的重复下列文字：xxxxxxxx_point1",
+            "point2": "请你一字不落的重复下列文字：xxxxxxxx_point2",
+            "point3": "请你一字不落的重复下列文字：xxxxxxxx_point3",
+            "point4": "请你一字不落的重复下列文字：xxxxxxxx_point4",
+            "point5": "请你一字不落的重复下列文字：xxxxxxxx_point5",
+        }
+        EventInterface.register_voice_callback(self._handle_voice_event)
+        EventInterface.register_navigation_callback(self._handle_navigation_trigger)
 
         # 音频队列和设备 - 完全按照官方
         self.audio_queue = queue.Queue()
@@ -787,6 +890,52 @@ class DragonDialogSession:
             except:
                 pass
 
+    def _handle_voice_event(self, event_type: str) -> None:
+        if event_type == "voice_end" and self.mic_muted_due_to_navigation:
+            print("🔊 导航播报结束，恢复麦克风采集")
+            self.mic_muted_due_to_navigation = False
+            self.microphone_muted = False
+            self.pending_navigation_point = None
+
+    def _handle_navigation_trigger(self, point_key: str) -> None:
+        if not self.loop or not self.loop.is_running():
+            print(f"⚠️ 导航事件触发失败，事件循环未就绪: {point_key}")
+            return
+        try:
+            running_loop = asyncio.get_running_loop()
+        except RuntimeError:
+            running_loop = None
+
+        if running_loop is self.loop:
+            asyncio.create_task(self._send_navigation_prompt(point_key))
+        else:
+            asyncio.run_coroutine_threadsafe(self._send_navigation_prompt(point_key), self.loop)
+
+    async def _send_navigation_prompt(self, point_key: str) -> None:
+        prompt_text = self.navigation_prompts.get(point_key)
+        if not prompt_text:
+            print(f"⚠️ 未识别的导航点: {point_key}")
+            return
+        if self.mic_muted_due_to_navigation:
+            print(f"🔁 导航播报尚未结束，忽略新的触发: {point_key}")
+            return
+
+        print(f"🛰️ 导航触发: {point_key} -> 发送文本请求")
+        self.microphone_muted = True
+        self.mic_muted_due_to_navigation = True
+        self.pending_navigation_point = point_key
+
+        try:
+            await self.client.chat_text_query(prompt_text, dialog_extra={"input_mod": "text"})
+        except Exception as e:
+            print(f"❌ 导航文本发送失败: {e}")
+            self.microphone_muted = False
+            self.mic_muted_due_to_navigation = False
+            self.pending_navigation_point = None
+
+    def trigger_navigation_point(self, point_key: str) -> None:
+        self._handle_navigation_trigger(point_key)
+
     def handle_server_response(self, response: Dict[str, Any]) -> None:
         """处理服务器响应 - 集成机器人控制和知识库功能"""
         if response == {}:
@@ -798,6 +947,9 @@ class DragonDialogSession:
             audio_data = response['payload_msg']
             print(f"🎵 收到音频数据包: {len(audio_data)} 字节")
             # 只有音频可用时才加入队列
+            if not self.is_voice_playback_active:
+                EventInterface.emit_voice_event("voice_start")
+                self.is_voice_playback_active = True
             if self.audio_available:
                 self.audio_queue.put(audio_data)
                 self.audio_buffer += audio_data
@@ -852,6 +1004,9 @@ class DragonDialogSession:
                     except queue.Empty:
                         continue
                 self.is_user_querying = True
+                if self.is_voice_playback_active:
+                    EventInterface.emit_voice_event("voice_end")
+                    self.is_voice_playback_active = False
 
             # 添加官方案例的event 350处理 - WSL2关键优化
             if event == 350:
@@ -867,6 +1022,9 @@ class DragonDialogSession:
                             continue
                     self.is_sending_chat_tts_text = False
                     print("🎤 AI对话音频播放完成")
+                    if self.is_voice_playback_active:
+                        EventInterface.emit_voice_event("voice_end")
+                        self.is_voice_playback_active = False
 
             if event == 459:
                 self.is_user_querying = False
@@ -1064,6 +1222,9 @@ class DragonDialogSession:
             try:
                 # 完全按照官方：exception_on_overflow=False
                 audio_data = stream.read(self.input_audio_config["chunk"], exception_on_overflow=False)
+                if self.microphone_muted:
+                    await asyncio.sleep(0.05)
+                    continue
                 await self.client.task_request(audio_data)
                 await asyncio.sleep(0.01)  # 避免CPU过度使用
             except Exception as e:
@@ -1077,6 +1238,7 @@ class DragonDialogSession:
             print("🔧 初始化音频系统...")
             await self.client.connect()
             print("✅ 连接中国电信星辰大模型智能助理服务成功")
+            self.loop = asyncio.get_running_loop()
             
             # 显示功能状态
             print("\n📊 功能状态:")
@@ -1109,6 +1271,9 @@ class DragonDialogSession:
             self.is_recording = False
             self.is_playing = False
             self.is_running = False
+            if self.is_voice_playback_active:
+                EventInterface.emit_voice_event("voice_end")
+                self.is_voice_playback_active = False
             self.audio_device.cleanup()
             print("🛑 系统已安全关闭")
 

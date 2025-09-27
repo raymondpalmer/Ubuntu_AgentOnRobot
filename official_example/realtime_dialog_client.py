@@ -2,7 +2,7 @@ import websockets
 import gzip
 import json
 
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 import protocol
 import config
@@ -78,11 +78,13 @@ class RealtimeDialogClient:
         hello_request.extend((len(payload_bytes)).to_bytes(4, 'big'))
         hello_request.extend(payload_bytes)
         await self.ws.send(hello_request)
-    async def chat_text_query(self, content: str) -> None:
+    async def chat_text_query(self, content: str, dialog_extra: Optional[Dict[str, Any]] = None) -> None:
         """发送Chat Text Query消息"""
         payload = {
             "content": content,
         }
+        if dialog_extra:
+            payload["dialog"] = {"extra": dialog_extra}
         chat_text_query_request = bytearray(protocol.generate_header())
         chat_text_query_request.extend(int(501).to_bytes(4, 'big'))
         payload_bytes = str.encode(json.dumps(payload))

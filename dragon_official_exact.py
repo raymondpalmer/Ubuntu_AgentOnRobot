@@ -80,6 +80,15 @@ except Exception as e:
     VOICE_CONFIG_AVAILABLE = False
     print(f"⚠️ 音色配置模块未找到: {e}")
 
+# HTTP导航测试服务器（可选）
+try:
+    from navigation_test_server import NavigationTestServer
+    NAVIGATION_SERVER_AVAILABLE = True
+    print("🌐 导航测试服务器已加载")
+except ImportError as e:
+    NAVIGATION_SERVER_AVAILABLE = False
+    print(f"⚠️ 导航测试服务器不可用: {e}")
+
 # 调试输出
 DEBUG_AUDIO = os.environ.get("DRAGON_DEBUG_AUDIO", "0") == "1"
 
@@ -453,6 +462,15 @@ class DragonDialogSession:
         # 初始化知识库
         self.knowledge_base = None
         self.auto_kb_manager = None
+        # 初始化对话模式与导航相关状态
+        self.dialog_mode = 'normal'  # 启动即为普通对话模式
+        self.last_navigation_point = None
+        self.microphone_muted = False
+        self.mic_muted_due_to_navigation = False
+        self.pending_navigation_point = None
+        self.navigation_task_active = False
+        import queue as _queue_init
+        self.navigation_queue = _queue_init.Queue()
         
         if LANGCHAIN_KB_AVAILABLE:
             try:
@@ -622,6 +640,20 @@ class DragonDialogSession:
         }
         EventInterface.register_voice_callback(self._handle_voice_event)
         EventInterface.register_navigation_callback(self._handle_navigation_trigger)
+        # 导航调度相关状态（确保所有导航请求都在主事件循环 self.loop 中执行）
+        self.navigation_queue = queue.Queue()
+        self.navigation_task_active = False
+        self.navigation_lock = threading.Lock()
+        # 导航音频监控时间戳
+        self.last_navigation_send_time = 0.0
+        self.last_audio_packet_time = 0.0
+        # 硬重启与初始扬声器静音控制
+        self._restart_pending = False
+        self.process_start_time = time.time()
+        try:
+            self.initial_speaker_mute_sec = int(os.environ.get('DRAGON_INITIAL_SPEAKER_MUTE_SEC', '0') or '0')
+        except Exception:
+            self.initial_speaker_mute_sec = 0
 
         # 音频队列和设备 - 完全按照官方
         self.audio_queue = queue.Queue()
@@ -646,11 +678,24 @@ class DragonDialogSession:
         self.force_file_playback = False
         self.is_playing = self.audio_available
         if self.is_playing:
+            # 若需要初始静音，将静音起点重新对齐到播放线程启动前瞬间，确保完整静音时长
+            if self.initial_speaker_mute_sec > 0:
+                self.process_start_time = time.time()
             self.player_thread = threading.Thread(target=self._audio_player_thread)
             self.player_thread.daemon = True
             self.player_thread.start()
         elif not self.audio_available:
             print("⚠️ 音频播放被禁用")
+        
+        # 初始化导航测试服务器
+        self.navigation_test_server = None
+        if NAVIGATION_SERVER_AVAILABLE:
+            try:
+                self.navigation_test_server = NavigationTestServer(self, port=8080)
+                print("🌐 导航测试服务器初始化完成")
+            except Exception as e:
+                print(f"⚠️ 导航测试服务器初始化失败: {e}")
+                self.navigation_test_server = None
 
     def _audio_player_thread(self):
         """音频播放线程 - 专注PyAudio解决方案"""
@@ -662,6 +707,11 @@ class DragonDialogSession:
             
         audio_packet_count = 0
         
+        # 导航播放结束 watchdog 相关变量
+        last_packet_time = time.time()
+        last_nav_packet_time = None
+        NAV_END_SILENCE_SEC = 1.0  # 导航音频结束后静默判定时间
+
         while self.is_playing:
             try:
                 # 从队列获取音频数据
@@ -669,9 +719,26 @@ class DragonDialogSession:
                 if audio_data is not None:
                     audio_packet_count += 1
                     dprint(f"🔊 收到音频包 #{audio_packet_count}: {len(audio_data)} 字节")
+                    last_packet_time = time.time()
+                    # 如果当前处于导航静音，记录导航包时间
+                    try:
+                        if getattr(self, 'mic_muted_due_to_navigation', False):
+                            last_nav_packet_time = last_packet_time
+                    except Exception:
+                        pass
                     
                     # PyAudio专项优化方案
                     try:
+                        # 初始静音窗口：真正不写入扬声器
+                        mute_active = self.initial_speaker_mute_sec > 0 and (time.time() - self.process_start_time) < self.initial_speaker_mute_sec
+                        if mute_active:
+                            remaining = self.initial_speaker_mute_sec - (time.time() - self.process_start_time)
+                            if audio_packet_count == 1 or int(remaining) != int(remaining + 0.02):  # 首次或整数秒变更时提示
+                                print(f"🔇 初始静音窗口 {self.initial_speaker_mute_sec}s 生效 (剩余≈{remaining:.1f}s)，抑制扬声器输出")
+                            # 记录时间戳便于 /status 观察
+                            self.last_audio_packet_time = time.time()
+                            # 直接跳过实际写入
+                            continue
                         # 方案1：强制清空缓冲区
                         if hasattr(self.output_stream, '_stream'):
                             try:
@@ -754,6 +821,11 @@ class DragonDialogSession:
                                     break
                         
                         dprint(f"✅ PyAudio播放音频包 #{audio_packet_count} 成功")
+                        # 初始静音窗口：若设置了 initial_speaker_mute_sec 且尚在时间内，将本包视作已消费但不真正输出（需要更早处理：此处用于兜底提示）
+                        # 由于实际写入已发生，这里仅打印提示；真正静音需在更外层实现（若后续迭代，可前移到 write 之前条件判断）
+                        if self.initial_speaker_mute_sec > 0 and (time.time() - self.process_start_time) < self.initial_speaker_mute_sec:
+                            if audio_packet_count == 1:
+                                print(f"🔇 初始静音窗口 {self.initial_speaker_mute_sec}s 内（重启后），本阶段音频不外放")
                         
                     except Exception as write_error:
                         print(f"⚠️ PyAudio播放失败: {write_error}")
@@ -790,6 +862,18 @@ class DragonDialogSession:
                             print(f"❌ PyAudio重新初始化失败: {reinit_error}")
                         
             except queue.Empty:
+                # 队列空闲，检查导航结束条件
+                now = time.time()
+                # 若处于导航静音且最近播放过导航音频包，但已静默超过阈值 -> 触发voice_end
+                try:
+                    if (getattr(self, 'mic_muted_due_to_navigation', False)
+                        and last_nav_packet_time is not None
+                        and (now - last_nav_packet_time) >= NAV_END_SILENCE_SEC):
+                        print(f"⏱️ 导航音频静默 >= {NAV_END_SILENCE_SEC}s，自动触发 voice_end")
+                        EventInterface.emit_voice_event("voice_end")
+                        last_nav_packet_time = None  # 防止重复触发
+                except Exception as werr:
+                    print(f"⚠️ 导航静默检测异常: {werr}")
                 time.sleep(0.1)
             except Exception as e:
                 print(f"❌ 音频播放错误: {e}")
@@ -901,62 +985,344 @@ class DragonDialogSession:
                 pass
 
     def _handle_voice_event(self, event_type: str) -> None:
-        if event_type == "voice_end" and self.mic_muted_due_to_navigation:
-            print("🔊 导航播报结束，恢复麦克风采集")
-            self.mic_muted_due_to_navigation = False
-            self.microphone_muted = False
-            self.pending_navigation_point = None
+        # 放宽条件：在导航模式或仍标记静音 / 或最近强制恢复标志下也处理
+        if event_type != "voice_end":
+            return
+        nav_context = getattr(self, 'dialog_mode', None) == 'navigation' or getattr(self, 'mic_muted_due_to_navigation', False) or getattr(self, '_nav_forced_recover', False)
+        if not nav_context:
+            return
+        print("🔊 (voice_end) 进入导航结束处理流程")
+        self._complete_navigation_end(source="voice_end_event")
 
-    def _handle_navigation_trigger(self, point_key: str) -> None:
-        if not self.loop or not self.loop.is_running():
-            print(f"⚠️ 导航事件触发失败，事件循环未就绪: {point_key}")
+    def _complete_navigation_end(self, source: str):
+        """统一的导航结束收尾：不论正常/静默/强制/voice_end均走这里"""
+        print(f"🧷 导航结束收尾 | source={source}")
+        # 恢复麦克风与标志
+        self.mic_muted_due_to_navigation = False
+        self.microphone_muted = False
+        self.pending_navigation_point = None
+        if getattr(self, 'is_voice_playback_active', False):
+            print("🔄 收尾: is_voice_playback_active -> False")
+            self.is_voice_playback_active = False
+        if hasattr(self, 'is_user_querying') and self.is_user_querying:
+            print("🔄 收尾: is_user_querying -> False")
+            self.is_user_querying = False
+        # 清理强制恢复标志
+        if hasattr(self, '_nav_forced_recover'):
+            self._nav_forced_recover = False
+        # 状态打印
+        try:
+            q_len = self.navigation_queue.qsize() if hasattr(self,'navigation_queue') else 'NA'
+        except Exception:
+            q_len = 'NA'
+        print(f"🧪 导航收尾状态: mic_muted={self.microphone_muted} voice_playback={self.is_voice_playback_active} queue={q_len}")
+        # 模式切换+可选软重启
+        if getattr(self, 'dialog_mode', None) == 'navigation':
+            self._exit_navigation_mode()
+            if os.environ.get('DRAGON_NAV_RESTART_ON_EXIT', '0') == '1':
+                try:
+                    self._soft_ai_reset(skip_intro=True)
+                except Exception as e:
+                    print(f"⚠️ 软重启AI失败: {e}")
+        else:
+            print("ℹ️ 导航收尾时不在 navigation 模式 (可能已提前强制恢复)")
+        # 新需求：导航语音结束后硬重启整个系统
+        try:
+            self._schedule_hard_restart()
+        except Exception as e:
+            print(f"⚠️ 调度硬重启失败: {e}")
+
+    def _schedule_hard_restart(self, delay: float = 1.0):
+        if self._restart_pending:
+            return
+        self._restart_pending = True
+        print(f"♻️ 计划在 {delay}s 后执行系统硬重启 (导航结束策略)")
+        timer = threading.Timer(delay, self._perform_hard_restart)
+        timer.daemon = True
+        timer.start()
+
+    def _perform_hard_restart(self):
+        try:
+            print("♻️ 正在执行硬重启：准备 execv 重启进程")
+            # 重启后前8秒静音扬声器
+            os.environ['DRAGON_INITIAL_SPEAKER_MUTE_SEC'] = '8'
+            os.environ['DRAGON_SKIP_INTRO_HINT'] = '1'
+            self.is_running = False
+            python = sys.executable
+            args = [python] + sys.argv
+            print(f"🚀 execv 重启: {args}")
+            os.execv(python, args)
+        except Exception as e:
+            print(f"❌ 硬重启失败: {e}")
+
+    def _soft_ai_reset(self, skip_intro: bool = True):
+        """软重置AI交互状态，不重新建立音频线程；可选择跳过自我介绍。"""
+        print("♻️ 执行AI软重置 (skip_intro=%s)" % skip_intro)
+        # 清理可能残留的状态
+        self.is_user_querying = False
+        self.is_voice_playback_active = False
+        self.microphone_muted = False
+        self.mic_muted_due_to_navigation = False
+        self.pending_navigation_point = None
+        # 标记需要重开输入流，下一循环自动重新 open_input_stream
+        self._need_reopen_input_stream = True
+        # 清空音频队列
+        try:
+            cleared = 0
+            while not self.audio_queue.empty():
+                self.audio_queue.get_nowait()
+                cleared += 1
+            if cleared:
+                print(f"🧹 清空残留音频包: {cleared}")
+        except Exception:
+            pass
+        # 处理 say_hello 事件
+        if skip_intro and hasattr(self, 'say_hello_over_event') and not self.say_hello_over_event.is_set():
+            self.say_hello_over_event.set()
+        print("✅ 软重置完成，可继续语音交互")
+
+    def _force_navigation_recovery(self, reason: str):
+        """在异常或超时情况下强制恢复麦克风与模式"""
+        print(f"⚠️ 强制恢复对话模式: {reason}")
+        self._nav_forced_recover = True
+        try:
+            self._complete_navigation_end(source=f"force:{reason}")
+        except Exception as e:
+            print(f"⚠️ 强制恢复收尾失败: {e}")
+
+    def _schedule_navigation_timeout_guard(self, point_key: str, timeout: float = 25.0):
+        """调度一个超时守护：若超过timeout仍未恢复则强制回退"""
+        if not getattr(self, 'loop', None) or not self.loop.is_running():
+            return
+        start_marker = time.time()
+        def _timeout_check():
+            # 仅当仍处于导航静音且 pending 为该点时才强制
+            if self.mic_muted_due_to_navigation and self.pending_navigation_point == point_key:
+                elapsed = time.time() - start_marker
+                if elapsed >= timeout:
+                    self._force_navigation_recovery(f"导航点 {point_key} 超过 {timeout}s 未收到 voice_end")
+            # 否则无需处理
+        self.loop.call_later(timeout + 0.1, _timeout_check)
+
+    def _schedule_navigation_audio_fallback(self, point_key: str):
+        """发送导航文本后若短时间内没有音频开始则强制恢复，避免一直静音等待。"""
+        if not getattr(self, 'loop', None) or not self.loop.is_running():
             return
         try:
-            running_loop = asyncio.get_running_loop()
-        except RuntimeError:
-            running_loop = None
+            delay = float(os.environ.get('DRAGON_NAV_AUDIO_FALLBACK_SEC', '6'))
+        except Exception:
+            delay = 6.0
+        send_snapshot = self.last_navigation_send_time
+        def _audio_fallback_check():
+            if (self.pending_navigation_point == point_key and
+                self.mic_muted_due_to_navigation and
+                not self.is_voice_playback_active and
+                send_snapshot == self.last_navigation_send_time and
+                self.last_audio_packet_time < send_snapshot):
+                self._force_navigation_recovery(f"audio_fallback_no_voice point={point_key}")
+        self.loop.call_later(delay, _audio_fallback_check)
 
-        if running_loop is self.loop:
-            asyncio.create_task(self._send_navigation_prompt(point_key))
-        else:
-            asyncio.run_coroutine_threadsafe(self._send_navigation_prompt(point_key), self.loop)
+    def _enter_navigation_mode(self, point_key: str):
+        """进入导航模式：静音麦克风、记录模式、可选播报提示"""
+        self.dialog_mode = 'navigation'
+        self.last_navigation_point = point_key
+        print(f"🟡 模式切换: normal -> navigation ({point_key})")
+        if os.environ.get('DRAGON_NAV_START_HINT', '0') == '1':
+            # 仅示例：也可以发送一个简短提示文本
+            print("💬 (提示) 进入导航播报模式")
+
+    def _exit_navigation_mode(self):
+        """退出导航模式，恢复普通对话并重置所有导航相关状态"""
+        prev = getattr(self, 'dialog_mode', 'unknown')
+        self.reset_to_normal_mode()
+        print(f"🟢 模式切换: {prev} -> normal (全部状态已重置)")
+        if os.environ.get('DRAGON_NAV_RESUME_HINT', '0') == '1':
+            try:
+                # 这里可以考虑用 TTS 发送一句“已恢复正常对话”
+                print("💬 (提示) 已恢复普通对话模式")
+            except Exception as e:
+                print(f"⚠️ 恢复提示发送失败: {e}")
+    
+    def reset_to_normal_mode(self):
+        """重置所有导航相关状态，回到刚启动时的普通对话模式"""
+        self.dialog_mode = 'normal'
+        self.last_navigation_point = None
+        self.microphone_muted = False
+        self.mic_muted_due_to_navigation = False
+        self.pending_navigation_point = None
+        self.navigation_task_active = False
+        if hasattr(self, 'navigation_queue') and self.navigation_queue:
+            try:
+                while not self.navigation_queue.empty():
+                    self.navigation_queue.get(False)
+            except Exception:
+                pass
+        print("🔄 已重置为普通对话模式，所有导航状态清空")
+
+    def _handle_navigation_trigger(self, point_key: str) -> None:
+        print(f"🎯 [NAV] 收到导航触发: {point_key}")
+
+        # 基本校验
+        if point_key not in self.navigation_prompts:
+            print(f"⚠️ [NAV] 未知导航点: {point_key}")
+            return
+
+        # 如果主事件循环尚未记录（极早期阶段）
+        if not getattr(self, 'loop', None):
+            try:
+                self.loop = asyncio.get_running_loop()
+                print(f"ℹ️ [NAV] 捕获运行事件循环: {id(self.loop)}")
+            except RuntimeError:
+                print("❌ [NAV] 无法获取事件循环，丢弃导航触发")
+                return
+
+        if not self.loop.is_running():
+            print("❌ [NAV] 事件循环未运行，无法调度导航")
+            return
+
+        # 入队 + 调度
+        with self.navigation_lock:
+            if self.navigation_task_active:
+                self.navigation_queue.put(point_key)
+                print(f"⏳ [NAV] 当前有正在执行的导航，已排队: {point_key} | 队列长度={self.navigation_queue.qsize()}")
+                return
+            else:
+                # 立即调度
+                self.navigation_task_active = True
+                print(f"� [NAV] 立即调度导航任务: {point_key}")
+                self._schedule_navigation_coroutine(point_key)
+
+    def _schedule_navigation_coroutine(self, point_key: str) -> None:
+        """确保在 self.loop 上调度协程，不创建新事件循环"""
+        try:
+            def _done_cb(fut: asyncio.Future):
+                try:
+                    fut.result()
+                    print(f"✅ [NAV] 导航任务完成: {point_key}")
+                except Exception as e:
+                    print(f"❌ [NAV] 导航任务异常: {e}")
+                finally:
+                    # 处理下一个
+                    self._process_next_navigation()
+
+            # 当前线程是否已经在该loop中？
+            try:
+                running_loop = asyncio.get_running_loop()
+            except RuntimeError:
+                running_loop = None
+
+            if running_loop is self.loop:
+                print(f"� [NAV] 在主事件循环中直接创建任务: {point_key}")
+                task = asyncio.create_task(self._send_navigation_prompt(point_key))
+                task.add_done_callback(_done_cb)
+            else:
+                print(f"🔄 [NAV] 跨线程提交到主事件循环: {point_key}")
+                fut = asyncio.run_coroutine_threadsafe(self._send_navigation_prompt(point_key), self.loop)
+                fut.add_done_callback(_done_cb)
+        except Exception as e:
+            print(f"❌ [NAV] 调度失败: {e}")
+            # 直接释放占用，避免死锁
+            with self.navigation_lock:
+                self.navigation_task_active = False
+
+    def _process_next_navigation(self) -> None:
+        """从队列中取下一个导航任务"""
+        with self.navigation_lock:
+            if not self.navigation_queue.empty():
+                next_point = self.navigation_queue.get()
+                print(f"➡️ [NAV] 调度排队中的下一个导航: {next_point} | 剩余={self.navigation_queue.qsize()}")
+                self.navigation_task_active = True
+                self._schedule_navigation_coroutine(next_point)
+            else:
+                print("🟢 [NAV] 导航队列清空，空闲")
+                self.navigation_task_active = False
 
     async def _send_navigation_prompt(self, point_key: str) -> None:
+        print(f"🎯 开始处理导航点: {point_key}")
+        
         prompt_text = self.navigation_prompts.get(point_key)
         if not prompt_text:
             print(f"⚠️ 未识别的导航点: {point_key}")
             return
-        if self.mic_muted_due_to_navigation:
+            
+        if hasattr(self, 'mic_muted_due_to_navigation') and self.mic_muted_due_to_navigation:
             print(f"🔁 导航播报尚未结束，忽略新的触发: {point_key}")
             return
 
         print(f"🛰️ 导航触发: {point_key} -> 发送文本请求")
-        self.microphone_muted = True
-        self.mic_muted_due_to_navigation = True
-        self.pending_navigation_point = point_key
+        print(f"📝 导航文本: {prompt_text[:100]}...")  # 显示前100字符
+        
+        # 设置状态
+        if hasattr(self, 'microphone_muted'):
+            self.microphone_muted = True
+        if hasattr(self, 'mic_muted_due_to_navigation'):
+            self.mic_muted_due_to_navigation = True
+        if hasattr(self, 'pending_navigation_point'):
+            self.pending_navigation_point = point_key
+        # 进入导航模式（若尚未处于该模式）
+        if getattr(self, 'dialog_mode', None) != 'navigation':
+            try:
+                self._enter_navigation_mode(point_key)
+            except Exception as e:
+                print(f"⚠️ 进入导航模式失败: {e}")
+
+        # 安排超时守护，防止 voice_end 未触发导致一直静音
+        try:
+            self._schedule_navigation_timeout_guard(point_key)
+        except Exception as e:
+            print(f"⚠️ 安排导航超时守护失败: {e}")
 
         try:
+            # 检查client是否存在
+            if not hasattr(self, 'client') or not self.client:
+                print(f"❌ Dragon客户端未初始化")
+                return
+                
+            print(f"📡 发送导航文本到AI模型...")
             await self.client.chat_text_query(prompt_text, dialog_extra={"input_mod": "text"})
+            print(f"✅ 导航文本发送成功: {point_key}")
+            self.last_navigation_send_time = time.time()
+            try:
+                self._schedule_navigation_audio_fallback(point_key)
+            except Exception as e:
+                print(f"⚠️ 安排导航音频回退守护失败: {e}")
+
+            # 兜底：如果模型不返回501文本后自动TTS，我们主动再发送一个 chat_tts_text 请求（非用户提问语境）
+            try:
+                await self.client.chat_tts_text(is_user_querying=False, start=True, end=True, content=prompt_text)
+                print(f"🔁 已发送导航兜底TTS: {point_key}")
+            except Exception as e:
+                print(f"⚠️ 导航兜底TTS发送失败: {e}")
+            
         except Exception as e:
             print(f"❌ 导航文本发送失败: {e}")
-            self.microphone_muted = False
-            self.mic_muted_due_to_navigation = False
-            self.pending_navigation_point = None
+            # 恢复状态
+            if hasattr(self, 'microphone_muted'):
+                self.microphone_muted = False
+            if hasattr(self, 'mic_muted_due_to_navigation'):
+                self.mic_muted_due_to_navigation = False
+            if hasattr(self, 'pending_navigation_point'):
+                self.pending_navigation_point = None
 
     def trigger_navigation_point(self, point_key: str) -> None:
         self._handle_navigation_trigger(point_key)
 
     def handle_server_response(self, response: Dict[str, Any]) -> None:
         """处理服务器响应 - 集成机器人控制和知识库功能"""
-        if response == {}:
+        if not response:
             return
-        
-        if response['message_type'] == 'SERVER_ACK' and isinstance(response.get('payload_msg'), bytes):
+
+        msg_type = response.get('message_type')
+        if msg_type is None:
+            print(f"⚠️ [MSG] 缺少 message_type，忽略：keys={list(response.keys())}")
+            return
+
+        if msg_type == 'SERVER_ACK' and isinstance(response.get('payload_msg'), bytes):
             if self.is_sending_chat_tts_text:
                 return
             audio_data = response['payload_msg']
             print(f"🎵 收到音频数据包: {len(audio_data)} 字节")
-            # 只有音频可用时才加入队列
+            self.last_audio_packet_time = time.time()
             if not self.is_voice_playback_active:
                 EventInterface.emit_voice_event("voice_start")
                 self.is_voice_playback_active = True
@@ -965,8 +1331,9 @@ class DragonDialogSession:
                 self.audio_buffer += audio_data
             else:
                 print("⚠️ 音频不可用，跳过音频数据")
-            
-        elif response['message_type'] == 'SERVER_FULL_RESPONSE':
+            return
+
+        if msg_type == 'SERVER_FULL_RESPONSE':
             event = response.get('event')
             payload_msg = response.get('payload_msg', {})
             print(f"🔄 服务器响应: 事件{event}")
@@ -1039,10 +1406,18 @@ class DragonDialogSession:
             if event == 459:
                 self.is_user_querying = False
                 # 严格官方：不做文件回放
-                
-        elif response['message_type'] == 'SERVER_ERROR':
-            print(f"❌ 服务器错误: {response['payload_msg']}")
-            raise Exception("服务器错误")
+                # 如果当前是导航静音但实质已经没有音频流，做一次兜底恢复
+                if self.mic_muted_due_to_navigation and not self.is_voice_playback_active:
+                    print("⚠️ 事件459后仍处于导航静音，执行兜底恢复")
+                    self._force_navigation_recovery("event459_guard")
+            return
+
+        if msg_type == 'SERVER_ERROR':
+            print(f"❌ 服务器错误: {response.get('payload_msg')}")
+            return
+
+        # 其它类型暂不处理
+        # print(f"ℹ️ 未处理的消息类型: {msg_type}")
 
     def should_use_knowledge_base(self, text: str) -> bool:
         """判断是否需要使用知识库"""
@@ -1220,6 +1595,7 @@ class DragonDialogSession:
 
         # 处理麦克风输入
         stream = self.audio_device.open_input_stream()
+        self._need_reopen_input_stream = False
         print("🎤 基于中国电信星辰大模型驱动的机器人智能助理已准备就绪！")
         print("💡 功能说明：")
         print("   🤖 机器人控制：'机器人前进'、'让机器人左转'、'机器人停止'")
@@ -1228,6 +1604,9 @@ class DragonDialogSession:
         print("   ⌨️  按Ctrl+C退出")
         print("=" * 50)
 
+        frame_counter = 0
+        last_frame_log_time = time.time()
+        silent_probe_sent = False
         while self.is_recording:
             try:
                 # 完全按照官方：exception_on_overflow=False
@@ -1235,7 +1614,36 @@ class DragonDialogSession:
                 if self.microphone_muted:
                     await asyncio.sleep(0.05)
                     continue
+                # 若需要重开输入流
+                if getattr(self, '_need_reopen_input_stream', False):
+                    try:
+                        stream.stop_stream()
+                        stream.close()
+                    except Exception:
+                        pass
+                    try:
+                        stream = self.audio_device.open_input_stream()
+                        print("🔁 已重新打开麦克风输入流")
+                        self._need_reopen_input_stream = False
+                        silent_probe_sent = False  # 重新发送探测
+                    except Exception as e:
+                        print(f"❌ 重开输入流失败: {e}")
+                        await asyncio.sleep(0.2)
+                        continue
                 await self.client.task_request(audio_data)
+                frame_counter += 1
+                if frame_counter % 25 == 0:
+                    now = time.time()
+                    print(f"🎙️ 已发送音频帧 {frame_counter} (mic_muted={self.microphone_muted})")
+                    last_frame_log_time = now
+                if not silent_probe_sent and frame_counter > 12:
+                    try:
+                        silent_probe = b'\x00' * len(audio_data)
+                        await self.client.task_request(silent_probe)
+                        print("🛰️ 发送静音探测帧 (唤醒检测)")
+                    except Exception as e:
+                        print(f"⚠️ 静音探测帧发送失败: {e}")
+                    silent_probe_sent = True
                 await asyncio.sleep(0.01)  # 避免CPU过度使用
             except Exception as e:
                 print(f"❌ 读取麦克风数据出错: {e}")
@@ -1257,6 +1665,13 @@ class DragonDialogSession:
             print(f"   🔄 自动管理: {'✅ 已启用' if self.auto_kb_manager else '⚠️ 未启用'}")
             print(f"   🎯 自定义Prompt: {'✅ 已加载' if PROMPT_CONFIG_AVAILABLE else '⚠️ 使用默认'}")
             print(f"   🎵 音色配置: {'✅ 已加载' if VOICE_CONFIG_AVAILABLE else '⚠️ 使用默认'}")
+            
+            # 启动导航测试服务器
+            if self.navigation_test_server:
+                self.navigation_test_server.start()
+                print(f"   🌐 导航测试: ✅ 已启动 http://localhost:8080")
+            else:
+                print(f"   🌐 导航测试: ⚠️ 未启用")
 
             # 启动任务 - 完全按照官方
             asyncio.create_task(self.process_microphone_input())
@@ -1284,6 +1699,11 @@ class DragonDialogSession:
             if self.is_voice_playback_active:
                 EventInterface.emit_voice_event("voice_end")
                 self.is_voice_playback_active = False
+            
+            # 停止导航测试服务器
+            if self.navigation_test_server:
+                self.navigation_test_server.stop()
+                
             self.audio_device.cleanup()
             print("🛑 系统已安全关闭")
 

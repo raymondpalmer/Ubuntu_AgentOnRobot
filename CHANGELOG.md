@@ -1,19 +1,42 @@
 # 更新日志 CHANGELOG
 
-## 2025-09-28
-### 新增
-- 导航点文本触发 (point1~point5)：自动麦克风静音 -> 发送文本 -> TTS 播报 -> voice_end 恢复。
-- 文本输入模式支持：发送时添加 dialog.extra.input_mod = "text"。
-- 事件接口 EventInterface：统一 voice / command / navigation 回调注册与触发。
-- 语音播放生命周期事件：voice_start / voice_end。
+## 2025-09-28 (最新版本)
 
-### 优化
-- Prompt 配置精简：保留结构删除冗长内容，保持兼容。
-- 机器人命令事件化：输出 cmd_1~cmd_6 便于上层消费。
+### 🚀 重大更新：导航点硬重启机制
+- **导航结束硬重启**：每次导航点语音播报结束后，自动执行系统硬重启（`os.execv`）
+- **重启后静音窗口**：重启后前 8 秒完全静音扬声器，避免开场白干扰
+- **静默检测优化**：播放线程自动检测导航音频静默 ≥1s 触发 voice_end
+- **统一收尾逻辑**：`_complete_navigation_end` 统一处理所有导航结束场景
+- **HTTP 状态接口**：新增 `/status` 和 `/ping` 接口用于实时状态监控
 
-### 说明
-- 新增逻辑集中在 dragon_official_exact.py 与 realtime_dialog_client.chat_text_query。
-- 旧脚本不依赖导航点事件时无需修改即可继续运行。
+### 🔧 技术改进
+- **事件驱动架构**：EventInterface 统一管理 voice/command/navigation 回调
+- **超时防护机制**：25s 超时守护 + 6s 音频回退保护，防止长期静音
+- **音频帧监控**：录音循环增加帧计数日志，便于诊断发送状态
+- **软重启备选**：保留 `_soft_ai_reset` 作为轻量级恢复方案
+- **兜底 TTS 发送**：导航文本发送后自动追加 chat_tts_text 确保播报
+
+### 🌐 导航测试服务器增强
+- 新增状态查询：`http://localhost:8080/status` 返回详细会话状态 JSON
+- 新增活跃探测：`http://localhost:8080/ping` 发送轻量探测请求
+- 原有导航触发：`/point1` ~ `/point5` 继续可用
+
+### ⚙️ 环境变量控制
+- `DRAGON_NAV_RESTART_ON_EXIT=1`：启用导航结束软重启（已废弃，现为硬重启）
+- `DRAGON_INITIAL_SPEAKER_MUTE_SEC=8`：重启后静音秒数（自动设置）
+- `DRAGON_SKIP_INTRO_HINT=1`：跳过开场白提示（预留）
+- `DRAGON_NAV_AUDIO_FALLBACK_SEC=6`：音频回退等待时间
+
+### 🐛 修复问题
+- 修复导航播报后无法继续语音识别的问题
+- 修复状态机残留导致麦克风持续静音
+- 修复跨进程事件回调丢失问题
+- 修复 HTTP 服务器非 ASCII 字符编码错误
+
+### 💡 使用建议
+- 导航功能现在完全自包含，每次使用后会自动重启确保状态清洁
+- 重启后的 8 秒静音期间系统正在重新初始化，请耐心等待
+- 可通过 `/status` 接口实时监控系统状态
 
 ## 2025-09-10
 - v2.0.0 知识库集成：加入本地文档检索与上下文增强。

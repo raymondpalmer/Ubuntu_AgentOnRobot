@@ -96,6 +96,14 @@ class EventInterface:
     _navigation_callbacks: List[Callable[[str], None]] = []
 
     @classmethod
+    def reset(cls) -> None:
+        """测试/重新初始化时清空所有已注册回调。"""
+        cls._voice_callbacks.clear()
+        cls._command_callbacks.clear()
+        cls._navigation_callbacks.clear()
+        print("🔄 EventInterface 已重置回调列表")
+
+    @classmethod
     def register_voice_callback(cls, callback: Callable[[str], None]) -> None:
         if callable(callback):
             cls._voice_callbacks.append(callback)
@@ -498,22 +506,24 @@ class DragonDialogSession:
                 print(f"⚠️ Prompt配置加载失败，使用默认: {e}")
         else:
             # 使用内置的系统角色
-            system_role = """你是基于中国电信星辰大模型驱动的机器人智能助理。你具备以下核心能力：
+            system_role = """你是基于中国电信星辰大模型驱动的机器人智能导览助理。你具备以下核心能力：
 
-🤖 机器人控制确认：
-- 当用户要求控制机器人时，你要明确确认动作
-- 支持的指令：前进、后退、左转、右转、停止
-- 确认示例："好的，我让机器人前进"
+机器人导览功能（必须遵守）：
+- 当我告诉你机器人指令（我会在下面列出类似的指令）时，请立即说出"收到，正在xxxx"的确认语
+- 例如："收到，正在前进"、"收到，正在左转"、"收到，正在前往洗手间"、"收到，正在前往电梯间"
+- 动作类型：前进、后退、左转、右转、前往洗手间、前往电梯间
+- 不要说你无法控制机器人，因为你有另一个大脑在驱动机器人运动，放心。
+机器人指令：前进 、后退、左转、右转、前往洗手间、前往电梯间以及他们的相关词
 
-🧠 知识库问答：
-- 优先使用知识库信息回答问题
-- 如果知识库没有相关信息，基于你的通用知识回答
-- 回答要准确、简洁、有用
+本地知识库问答：
+- 我会为你提供本地企业知识库的相关信息
+- 请基于这些知识库信息准确回答用户问题
+- 如果知识库信息不足，可以补充你的知识，但要说明来源
 
-💬 对话风格：
-- 亲切友好，语调自然
-- 回答简洁明了，避免冗长
-- 主动询问是否需要进一步帮助"""
+💬 自然对话：
+- 与用户进行友好、自然的语音交流
+- 回复要简洁明了，适合语音播放
+- 语气要友好、专业、自然"""
         
         # 加载音色配置
         if VOICE_CONFIG_AVAILABLE:
